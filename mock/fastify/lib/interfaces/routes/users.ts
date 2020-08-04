@@ -35,17 +35,20 @@ module.exports = async function (fastify: FastifyInstance) {
     UsersController.index
   );
 
-  const bodyJsonSchema = {
-    type: "object",
-    required: ["name"],
-    properties: {
-      name: { type: "string", maxLength: 10 },
+  fastify.post(
+    "/users",
+    {
+      schema: {
+        body: {
+          type: "object",
+          required: ["name", "age"],
+          properties: {
+            name: { type: "string", maxLength: 10 },
+            age: { type: "number" },
+          },
+        },
+      },
     },
-  };
-  fastify.post("/users", { schema: { body: bodyJsonSchema } }, async function (
-    request: FastifyRequest<{ Body: ICreateUserParameter }>,
-    reply
-  ) {
-    return new User(request.body.name, 18, false);
-  });
+    UsersController.create
+  );
 };

@@ -5,3 +5,8 @@ export class User {
     public isActive: boolean = true
   ) {}
 }
+
+export interface IUserCreateParameter {
+  name: string;
+  age: number;
+}

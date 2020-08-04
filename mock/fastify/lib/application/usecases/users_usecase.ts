@@ -9,4 +9,8 @@ export class UsersUsecase {
   findAll(): User[] {
     return this.usersRepository.findAll();
   }
+
+  create(name: string, age: number): User {
+    return this.usersRepository.insert(name, age);
+  }
 }
