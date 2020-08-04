@@ -1,4 +1,5 @@
 import { FastifyInstance, FastifyRequest } from "fastify";
+import { UsersController } from "../controllers/users_controller";
 
 class User {
   constructor(
@@ -13,23 +14,26 @@ interface ICreateUserParameter {
 }
 
 module.exports = async function (fastify: FastifyInstance) {
-  const opts = {
-    schema: {
-      response: {
-        200: {
-          type: "object",
-          properties: {
-            name: { type: "string" },
-            age: { type: "number" },
+  fastify.get(
+    "/users",
+    {
+      schema: {
+        response: {
+          200: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                name: { type: "string" },
+                age: { type: "number" },
+              },
+            },
           },
         },
       },
     },
-  };
-
-  fastify.get("/users", opts, async function (request, reply) {
-    return new User("Taro", 18, false);
-  });
+    UsersController.index
+  );
 
   const bodyJsonSchema = {
     type: "object",
