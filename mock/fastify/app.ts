@@ -4,8 +4,7 @@ const app = fastify({
   logger: true,
 });
 
-app.register(require("./routes/root"));
-app.register(require("./routes/users"));
+app.register(require("./lib/interfaces/routes/users"));
 
 app.listen(3000, "0.0.0.0", (err, address) => {
   if (err) {
