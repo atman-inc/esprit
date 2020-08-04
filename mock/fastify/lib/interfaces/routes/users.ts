@@ -1,17 +1,5 @@
-import { FastifyInstance, FastifyRequest } from "fastify";
+import { FastifyInstance } from "fastify";
 import { UsersController } from "../controllers/users_controller";
-
-class User {
-  constructor(
-    public name: string,
-    public age: number,
-    public isActive: boolean
-  ) {}
-}
-
-interface ICreateUserParameter {
-  name: string;
-}
 
 module.exports = async function (fastify: FastifyInstance) {
   fastify.get(
