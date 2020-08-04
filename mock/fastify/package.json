@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "dev": "ts-node-dev --respawn index.ts",
     "start": "node index.js"
   },
   "author": "",
@@ -14,6 +15,8 @@
   },
   "devDependencies": {
     "@types/node": "^14.0.27",
+    "ts-node": "^8.10.2",
+    "ts-node-dev": "^1.0.0-pre.56",
     "typescript": "^3.9.7"
   }
 }
