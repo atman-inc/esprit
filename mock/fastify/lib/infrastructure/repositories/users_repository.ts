@@ -1,8 +1,7 @@
 import { User } from "../../domain/user";
+import { injectable } from "tsyringe";
 
 export class UsersRepository {
-  constructor() {}
-
   findAll(): User[] {
     return [new User("Taro", 18), new User("Hanako", 24)];
   }

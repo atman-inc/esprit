@@ -1,5 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { UsersController } from "../controllers/users_controller";
+import { container } from "tsyringe";
 
 module.exports = async function (fastify: FastifyInstance) {
   fastify.get(
@@ -20,7 +21,10 @@ module.exports = async function (fastify: FastifyInstance) {
         },
       },
     },
-    UsersController.index
+    (request, reply) => {
+      const controller = container.resolve(UsersController);
+      controller.index(request, reply);
+    }
   );
 
   fastify.post(
@@ -37,6 +41,9 @@ module.exports = async function (fastify: FastifyInstance) {
         },
       },
     },
-    UsersController.create
+    (request: any, reply) => {
+      const controller = container.resolve(UsersController);
+      controller.create(request, reply);
+    }
   );
 };

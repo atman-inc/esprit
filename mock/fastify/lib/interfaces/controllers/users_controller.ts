@@ -1,20 +1,21 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { container } from "tsyringe";
+import { injectable } from "tsyringe";
 import { UsersUsecase } from "../../application/usecases/users_usecase";
 import { IUserCreateParameter } from "../../domain/user";
 
+@injectable()
 export class UsersController {
-  static async index(request: FastifyRequest, reply: FastifyReply) {
-    const usecase = container.resolve(UsersUsecase);
-    reply.send(usecase.findAll());
+  constructor(private usersUsecase: UsersUsecase) {}
+
+  async index(request: FastifyRequest, reply: FastifyReply) {
+    reply.send(this.usersUsecase.findAll());
   }
 
-  static async create(
+  async create(
     request: FastifyRequest<{ Body: IUserCreateParameter }>,
     reply: FastifyReply
   ) {
-    const usecase = container.resolve(UsersUsecase);
     const { name, age } = request.body;
-    reply.send(usecase.create(name, age));
+    reply.send(this.usersUsecase.create(name, age));
   }
 }
