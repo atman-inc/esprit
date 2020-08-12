@@ -13,6 +13,7 @@ module.exports = async function (fastify: FastifyInstance) {
             items: {
               type: "object",
               properties: {
+                id: { type: "number" },
                 name: { type: "string" },
                 age: { type: "number" },
               },

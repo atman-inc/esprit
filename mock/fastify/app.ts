@@ -1,16 +1,24 @@
 import fastify from "fastify";
 import "reflect-metadata";
+import {createConnection} from "typeorm";
+import { container } from "tsyringe";
+import { User } from "./lib/domain/user.entity";
 
-const app = fastify({
-  logger: true,
-});
+(async function() {
+  const connection = await createConnection()
+  container.register('usersDB', { useValue: connection.getRepository(User) })
 
-app.register(require("./lib/interfaces/routes/users"));
+  const app = fastify({
+    logger: true,
+  });
 
-app.listen(3000, "0.0.0.0", (err, address) => {
-  if (err) {
-    console.error(err);
-    process.exit(1);
-  }
-  console.log(`Server listening at ${address}`);
-});
+  app.register(require("./lib/interfaces/routes/users"));
+
+  app.listen(3000, "0.0.0.0", (err, address) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    console.log(`Server listening at ${address}`);
+  });
+})();

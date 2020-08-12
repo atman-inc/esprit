@@ -1,12 +1,20 @@
-import { User } from "../../domain/user";
-import { injectable } from "tsyringe";
+import { User } from "../../domain/user.entity";
+import { injectable, inject } from "tsyringe";
+import { Repository } from "typeorm";
 
+@injectable()
 export class UsersRepository {
-  findAll(): User[] {
-    return [new User("Taro", 18), new User("Hanako", 24)];
+  constructor(@inject('usersDB') private readonly db: Repository<User>) {}
+
+  async findAll(): Promise<User[]> {
+    return this.db.find()
   }
 
-  insert(name: string, age: number): User {
-    return new User(name, age);
+  async insert(name: string, age: number): Promise<User> {
+    const user = new User()
+    user.name = name
+    user.age = age
+
+    return this.db.save(user)
   }
 }
