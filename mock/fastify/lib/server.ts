@@ -6,6 +6,10 @@ const server = {
             const connection = await createConnection()
             return connection
         },
+        async get(): Promise<Connection> {
+            const connection = await getConnection()
+            return connection
+        },
         async close() {
             await getConnection().close()
         }
