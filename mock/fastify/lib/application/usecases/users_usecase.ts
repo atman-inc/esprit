@@ -1,7 +1,6 @@
 import { UsersRepository } from "../../infrastructure/repositories/users_repository";
 import { injectable } from "tsyringe";
 import { User } from "../../domain/user.entity";
-import { InsertResult } from "typeorm";
 
 @injectable()
 export class UsersUsecase {

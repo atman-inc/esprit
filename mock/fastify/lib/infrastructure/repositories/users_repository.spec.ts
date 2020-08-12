@@ -1,17 +1,22 @@
 import { UsersRepository } from './users_repository'
-import { User } from "../../domain/user";
+import { User } from '../../domain/user.entity'
+import server from '../../server'
 
-describe('#findAll', () => {
-    const repository = new UsersRepository()
-
-    test('two users return', () => {
-        const users = repository.findAll()
+describe('UsersRepository', () => {
+    beforeAll(async () => {
+        await server.connectionDatabase.create()
     })
-})
+    afterAll(async () => {
+        await server.connectionDatabase.close()
+    })
 
-describe('#insert', () => {
-    const repository = new UsersRepository()
+    describe('#findAll', () => {
+        it('two users return', async () => {
+        })
+    })
 
-    test('new user return', () => {
+    describe('#insert', () => {
+        test('new user return', () => {
+        })
     })
 })

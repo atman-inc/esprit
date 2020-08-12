@@ -3,9 +3,10 @@ import "reflect-metadata";
 import {createConnection} from "typeorm";
 import { container } from "tsyringe";
 import { User } from "./lib/domain/user.entity";
+import server from "./lib/server";
 
 (async function() {
-  const connection = await createConnection()
+  const connection = await server.connectionDatabase.create()
   container.register('usersDB', { useValue: connection.getRepository(User) })
 
   const app = fastify({
