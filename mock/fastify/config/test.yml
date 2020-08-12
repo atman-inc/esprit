@@ -1,0 +1,5 @@
+database:
+  host: db
+  name: esprit_test
+  user: postgres
+  password: password
