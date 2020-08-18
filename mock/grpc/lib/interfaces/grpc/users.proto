@@ -1,0 +1,24 @@
+syntax = "proto3";
+package users;
+
+import "google/protobuf/empty.proto";
+
+service Users {
+    rpc FindAll (google.protobuf.Empty) returns (UsersResponse) {}
+    rpc FindOne (UserFindOneRequest) returns (UserResponse) {}
+}
+
+message UserFindOneRequest {
+    string id = 1;
+}
+
+message UsersResponse {
+    repeated UserResponse user = 1;
+}
+
+message UserResponse {
+    int64 id = 1;
+    string name = 2;
+    int32 age = 3;
+    bool isActive = 4;
+}
