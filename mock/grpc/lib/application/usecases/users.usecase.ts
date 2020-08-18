@@ -9,4 +9,8 @@ export class UsersUsecase {
     async findAll(): Promise<User[]> {
         return this.repository.findAll()
     }
+
+    async findOne(id: number): Promise<User | undefined> {
+        return this.repository.findOne(id)
+    }
 }

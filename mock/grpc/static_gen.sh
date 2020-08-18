@@ -12,10 +12,10 @@ grpc_tools_node_protoc \
   --grpc_out=${PROTO_DEST} \
   --plugin=protoc-gen-grpc=$(which grpc_tools_node_protoc_plugin) \
   -I ${PROTO_SRC} \
-  ${PROTO_SRC}/*
+  ${PROTO_SRC}/*.proto
 
 grpc_tools_node_protoc \
   --plugin=protoc-gen-ts=$(npm bin)/protoc-gen-ts \
   --ts_out=${PROTO_DEST} \
   -I ${PROTO_SRC} \
-  ${PROTO_SRC}/*
+  ${PROTO_SRC}/*.proto

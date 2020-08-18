@@ -12,7 +12,7 @@ import { User } from './lib/domain/entities/user.entity';
 
     const server = new grpc.Server()
 
-    server.addService(users_grpc_pb.UsersService, new UsersService())
+    server.addService(users_grpc_pb.UsersService, container.resolve(UsersService))
 
     server.bind('127.0.0.1:50051', grpc.ServerCredentials.createInsecure())
     console.log('run http://127.0.0.1:50051')

@@ -112,7 +112,7 @@ proto.users.UserFindOneRequest.prototype.toObject = function(opt_includeInstance
  */
 proto.users.UserFindOneRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    id: jspb.Message.getFieldWithDefault(msg, 1, "")
+    id: jspb.Message.getFieldWithDefault(msg, 1, 0)
   };
 
   if (includeInstance) {
@@ -150,7 +150,7 @@ proto.users.UserFindOneRequest.deserializeBinaryFromReader = function(msg, reade
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {number} */ (reader.readInt64());
       msg.setId(value);
       break;
     default:
@@ -183,8 +183,8 @@ proto.users.UserFindOneRequest.prototype.serializeBinary = function() {
 proto.users.UserFindOneRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getId();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f !== 0) {
+    writer.writeInt64(
       1,
       f
     );
@@ -193,20 +193,20 @@ proto.users.UserFindOneRequest.serializeBinaryToWriter = function(message, write
 
 
 /**
- * optional string id = 1;
- * @return {string}
+ * optional int64 id = 1;
+ * @return {number}
  */
 proto.users.UserFindOneRequest.prototype.getId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /**
- * @param {string} value
+ * @param {number} value
  * @return {!proto.users.UserFindOneRequest} returns this
  */
 proto.users.UserFindOneRequest.prototype.setId = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3IntField(this, 1, value);
 };
 
 

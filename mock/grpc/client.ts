@@ -8,9 +8,17 @@ const client = new users_grpc_pb.UsersClient(
     grpc.credentials.createInsecure(),
   );
 
-const req = new google_protobuf_empty_pb.Empty()
+const req1 = new google_protobuf_empty_pb.Empty()
 
-client.findAll(req, (error, result) => {
+client.findAll(req1, (error, result) => {
+    if (error) console.log('Error: ', error);
+    else console.log(result.toObject());
+})
+
+const req2 = new users_pb.UserFindOneRequest()
+req2.setId(1)
+
+client.findOne(req2, (error, result) => {
     if (error) console.log('Error: ', error);
     else console.log(result.toObject());
 })

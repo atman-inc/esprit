@@ -9,4 +9,8 @@ export class UsersRepository {
     async findAll(): Promise<User[]> {
         return this.db.find()
     }
+
+    async findOne(id: number): Promise<User | undefined> {
+        return this.db.findOne(id)
+    }
 }

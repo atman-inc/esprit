@@ -8,8 +8,8 @@ import * as jspb from "google-protobuf";
 import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";
 
 export class UserFindOneRequest extends jspb.Message { 
-    getId(): string;
-    setId(value: string): UserFindOneRequest;
+    getId(): number;
+    setId(value: number): UserFindOneRequest;
 
 
     serializeBinary(): Uint8Array;
@@ -24,7 +24,7 @@ export class UserFindOneRequest extends jspb.Message {
 
 export namespace UserFindOneRequest {
     export type AsObject = {
-        id: string,
+        id: number,
     }
 }
 
