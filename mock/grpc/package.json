@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev --respawn app.ts"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +16,7 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
+    "@types/config": "0.0.36",
     "config": "^3.3.1",
     "grpc": "^1.24.3",
     "pg": "^8.3.0",

@@ -6,7 +6,7 @@ services:
       - .:/esprit
     ports:
       - "3000:3000"
-    command: echo 1
+    command: npm run dev
     links:
       - db
   db:
