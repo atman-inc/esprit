@@ -13,4 +13,8 @@ export class UsersUsecase {
     async findOne(id: number): Promise<User | undefined> {
         return this.repository.findOne(id)
     }
+
+    async create(name: string, age: number): Promise<User> {
+        return this.repository.insert(name, age)
+    }
 }

@@ -30,7 +30,20 @@ export class UsersService implements users_grpc_pb.IUsersServer {
 
     async findOne(call: grpc.ServerUnaryCall<users_pb.UserFindOneRequest>, callback: grpc.sendUnaryData<users_pb.UserResponse>) {
         const user = await this.usecase.findOne(call.request.getId())
+        const response = new users_pb.UserResponse()
 
+        if (user) {
+            response.setId(user.id)
+            response.setName(user.name)
+            response.setAge(user.age)
+            response.setIsactive(user.isActivate)
+        }
+
+        callback(null, response)
+    }
+
+    async create(call: grpc.ServerUnaryCall<users_pb.UserCreateRequest>, callback: grpc.sendUnaryData<users_pb.UserResponse>) {
+        const user = await this.usecase.create(call.request.getName(), call.request.getAge())
         const response = new users_pb.UserResponse()
 
         if (user) {

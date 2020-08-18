@@ -13,4 +13,12 @@ export class UsersRepository {
     async findOne(id: number): Promise<User | undefined> {
         return this.db.findOne(id)
     }
+
+    async insert(name: string, age: number): Promise<User> {
+        const user = new User()
+        user.name = name
+        user.age = age
+
+        return this.db.save(user)
+    }
 }
