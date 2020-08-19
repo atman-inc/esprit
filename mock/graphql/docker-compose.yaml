@@ -5,7 +5,7 @@ services:
     volumes:
       - .:/esprit
     ports:
-      - "50051:50051"
+      - "4000:4000"
     command: npm run dev
     links:
       - db

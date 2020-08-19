@@ -6,3 +6,5 @@ ENV APP_ROOT /esprit
 WORKDIR $APP_ROOT
 
 RUN npm i
+
+EXPOSE 4000
