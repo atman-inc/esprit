@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev index.ts",
+    "dev": "ts-node-dev app.ts",
     "generate": "graphql-codegen --config codegen.yml"
   },
   "author": "",
@@ -23,7 +23,13 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
+    "@types/config": "0.0.36",
     "apollo-server": "^2.16.1",
-    "graphql": "^15.3.0"
+    "config": "^3.3.1",
+    "graphql": "^15.3.0",
+    "pg": "^8.3.2",
+    "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.3.0",
+    "typeorm": "^0.2.25"
   }
 }

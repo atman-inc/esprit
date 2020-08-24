@@ -1,24 +1,19 @@
 import { Resolvers, QueryResolvers, User } from '../../generated/graphql'
-
-const USERS: User[] = [
-    {
-      id: '1',
-      name: 'Harry Potter and the Chamber of Secrets',
-      age: 12,
-      isActive: true
-    },
-    {
-      id: '2',
-      name: 'Jurassic Park',
-      age: 20,
-      isActive: false
-    },
-  ];
+import { container } from 'tsyringe';
+import { UsersUsecase } from '../../application/usecases/users.usecase';
 
 const queryResolver: QueryResolvers = {
-  users: (): User[] => USERS,
-  user: (_, args): User => {
-    return USERS.find(u => u.id === args.id)!
+  users: async (): Promise<User[]> => {
+      const usecase = container.resolve(UsersUsecase)
+      const users = await usecase.findAll()
+
+      return users
+  },
+  user: async (_, args): Promise<User> => {
+    const usecase = container.resolve(UsersUsecase)
+    const user = await usecase.findOne(args.id)
+
+    return user!
   },
 }
 
