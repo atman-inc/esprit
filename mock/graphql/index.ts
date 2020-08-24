@@ -1,6 +1,6 @@
-import { ApolloServer, gql } from 'apollo-server'
+import { ApolloServer } from 'apollo-server'
 import { typeDefs } from './lib/schema/typeDefs'
-import { Resolvers, QueryResolvers, User } from './lib/generated/graphql'
+import { Resolvers, QueryResolvers, User, Task } from './lib/generated/graphql'
 
 const USERS: User[] = [
     {
@@ -21,6 +21,9 @@ const queryResolver: QueryResolvers = {
   users: (): User[] => USERS,
   user: (_, args): User => {
     return USERS.find(u => u.id === args.id)!
+  },
+  task: (_, args): Task => {
+    return { id: '1', title: 'task A' }
   }
 }
 const resolvers: Resolvers = {

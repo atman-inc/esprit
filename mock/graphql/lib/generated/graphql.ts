@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
+import { GraphQLResolveInfo } from 'graphql';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
@@ -9,8 +9,29 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** The `Upload` scalar type represents a file upload. */
-  Upload: any;
+};
+
+export type Task = {
+  __typename?: 'Task';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+};
+
+export type Query = {
+  __typename?: 'Query';
+  task: Task;
+  user: User;
+  users?: Maybe<Array<Maybe<User>>>;
+};
+
+
+export type QueryTaskArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryUserArgs = {
+  id: Scalars['ID'];
 };
 
 export type User = {
@@ -20,23 +41,6 @@ export type User = {
   age: Scalars['Int'];
   isActive: Scalars['Boolean'];
 };
-
-export type Query = {
-  __typename?: 'Query';
-  users?: Maybe<Array<Maybe<User>>>;
-  user: User;
-};
-
-
-export type QueryUserArgs = {
-  id: Scalars['ID'];
-};
-
-export enum CacheControlScope {
-  Public = 'PUBLIC',
-  Private = 'PRIVATE'
-}
-
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
 export type ResolversObject<TObject> = WithIndex<TObject>;
@@ -117,25 +121,36 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  User: ResolverTypeWrapper<User>;
+  Task: ResolverTypeWrapper<Task>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Query: ResolverTypeWrapper<{}>;
+  User: ResolverTypeWrapper<User>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  Query: ResolverTypeWrapper<{}>;
-  CacheControlScope: CacheControlScope;
-  Upload: ResolverTypeWrapper<Scalars['Upload']>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
-  User: User;
+  Task: Task;
   ID: Scalars['ID'];
   String: Scalars['String'];
+  Query: {};
+  User: User;
   Int: Scalars['Int'];
   Boolean: Scalars['Boolean'];
-  Query: {};
-  Upload: Scalars['Upload'];
+}>;
+
+export type TaskResolvers<ContextType = any, ParentType extends ResolversParentTypes['Task'] = ResolversParentTypes['Task']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+}>;
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  task?: Resolver<ResolversTypes['Task'], ParentType, ContextType, RequireFields<QueryTaskArgs, 'id'>>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
+  users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
 }>;
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
@@ -146,19 +161,10 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
-  user?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
-}>;
-
-export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
-  name: 'Upload';
-}
-
 export type Resolvers<ContextType = any> = ResolversObject<{
-  User?: UserResolvers<ContextType>;
+  Task?: TaskResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  Upload?: GraphQLScalarType;
+  User?: UserResolvers<ContextType>;
 }>;
 
 

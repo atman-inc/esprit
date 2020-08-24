@@ -1,0 +1,8 @@
+type Task {
+    id: ID!
+    title: String!
+}
+
+type Query {
+    task(id: ID!): Task!
+}
