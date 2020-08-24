@@ -3,6 +3,7 @@ type User {
     name: String!
     age: Int!
     isActive: Boolean!
+    tasks: [Task!]!
 }
 
 type Query {

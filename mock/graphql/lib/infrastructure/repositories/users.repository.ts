@@ -7,11 +7,11 @@ export class UsersRepository {
     constructor(@inject('usersDB') private readonly db: Repository<User>) {}
 
     async findAll(): Promise<User[]> {
-        return this.db.find()
+        return this.db.find( { relations: ['tasks'] })
     }
 
     async findOne(id: string): Promise<User | undefined> {
-        return this.db.findOne(id)
+        return this.db.findOne(id, { relations: ['tasks'] })
     }
 
     async insert(name: string, age: number): Promise<User> {

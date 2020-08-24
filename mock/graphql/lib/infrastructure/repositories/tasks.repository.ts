@@ -7,12 +7,8 @@ import { User } from '../../domain/entities/user.entity';
 export class TasksRepository {
     constructor(@inject('tasksDB') private readonly db: Repository<Task>) {}
 
-    async findAll(): Promise<Task[]> {
-        return this.db.find()
-    }
-
     async findOne(id: string): Promise<Task | undefined> {
-        return this.db.findOne(id)
+        return this.db.findOne(id, { relations: ['user'] })
     }
 
     async insert(user: User, title: string): Promise<Task> {
