@@ -42,6 +42,17 @@ export type User = {
   isActive: Scalars['Boolean'];
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  addUser: User;
+};
+
+
+export type MutationAddUserArgs = {
+  name: Scalars['String'];
+  age: Scalars['Int'];
+};
+
 export type WithIndex<TObject> = TObject & Record<string, any>;
 export type ResolversObject<TObject> = WithIndex<TObject>;
 
@@ -128,6 +139,7 @@ export type ResolversTypes = ResolversObject<{
   User: ResolverTypeWrapper<User>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Mutation: ResolverTypeWrapper<{}>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -139,6 +151,7 @@ export type ResolversParentTypes = ResolversObject<{
   User: User;
   Int: Scalars['Int'];
   Boolean: Scalars['Boolean'];
+  Mutation: {};
 }>;
 
 export type TaskResolvers<ContextType = any, ParentType extends ResolversParentTypes['Task'] = ResolversParentTypes['Task']> = ResolversObject<{
@@ -161,10 +174,15 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  addUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAddUserArgs, 'name' | 'age'>>;
+}>;
+
 export type Resolvers<ContextType = any> = ResolversObject<{
   Task?: TaskResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
 }>;
 
 

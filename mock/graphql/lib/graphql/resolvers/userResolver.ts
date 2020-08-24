@@ -1,4 +1,4 @@
-import { Resolvers, QueryResolvers, User } from '../../generated/graphql'
+import { Resolvers, QueryResolvers, MutationResolvers, User } from '../../generated/graphql'
 import { container } from 'tsyringe';
 import { UsersUsecase } from '../../application/usecases/users.usecase';
 
@@ -17,6 +17,16 @@ const queryResolver: QueryResolvers = {
   },
 }
 
+const mutationResolver: MutationResolvers = {
+  addUser: async (_, args): Promise<User> => {
+    const usecase = container.resolve(UsersUsecase)
+    const user = await usecase.create(args.name, args.age)
+
+    return user
+  }
+}
+
 export const resolvers: Resolvers = {
-    Query: queryResolver
+    Query: queryResolver,
+    Mutation: mutationResolver
 }

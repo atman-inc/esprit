@@ -1,5 +1,5 @@
 overwrite: true
-schema: ./lib/schema/**/*.graphql
+schema: ./lib/graphql/**/*.graphql
 documents: null
 generates:
     #  ./graphql.schema.json:
