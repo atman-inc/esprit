@@ -3,12 +3,12 @@ import { User } from "./user.entity";
 
 @Entity()
 export class Task {
-    @PrimaryGeneratedColumn()
-    id: string
+  @PrimaryGeneratedColumn()
+  id: string;
 
-    @Column()
-    title: string
+  @Column()
+  title: string;
 
-    @ManyToOne(type => User, user => user.tasks)
-    user: User
+  @ManyToOne((type) => User, (user) => user.tasks)
+  user: User;
 }

@@ -1,16 +1,16 @@
 type User {
-    id: ID!
-    name: String!
-    age: Int!
-    isActive: Boolean!
-    tasks: [Task!]!
+  id: ID!
+  name: String!
+  age: Int!
+  isActive: Boolean!
+  tasks: [Task!]!
 }
 
 type Query {
-    users: [User]
-    user(id: ID!): User!
+  users: [User]
+  user(id: ID!): User!
 }
 
 type Mutation {
-    addUser(name: String!, age: Int!): User!
+  addUser(name: String!, age: Int!): User!
 }
