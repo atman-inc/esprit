@@ -1,19 +1,13 @@
 import { Resolvers, QueryResolvers, Task } from '../../generated/graphql'
-
-const TASKS: Task[] = [
-    {
-      id: '1',
-      title: 'TASK A'
-    },
-    {
-      id: '2',
-      title: 'TASK B'
-    },
-  ];
+import { container } from 'tsyringe'
+import { TasksUsecase } from '../../application/usecases/tasks.usecase'
 
  const queryResolver: QueryResolvers = {
-     task: (_, args): Task => {
-         return TASKS.find(t => t.id === args.id)!
+     task: async (_, args): Promise<Task> => {
+       const usecase = container.resolve(TasksUsecase)
+       const task = await usecase.findOne(args.id)
+
+       return task!
      }
  }
 
