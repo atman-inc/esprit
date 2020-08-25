@@ -1,14 +1,16 @@
-import { injectable } from "tsyringe";
+import { injectable, inject } from "tsyringe";
 import { User } from "../../domain/entities/users_entity";
+import { DynamoStore } from "@shiftcoders/dynamo-easy";
 
 @injectable()
 export class UsersRepository {
-  findAll(): User[] {
-    const user1 = new User();
-    user1.id = 1;
-    user1.name = "Taro";
-    user1.age = 18;
+  constructor(
+    @inject("usersStore") private readonly store: DynamoStore<User>
+  ) {}
 
-    return [user1];
+  async findAll(): Promise<User[]> {
+    const users = await this.store.scan().exec();
+
+    return users;
   }
 }

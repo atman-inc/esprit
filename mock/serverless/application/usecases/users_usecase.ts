@@ -6,7 +6,7 @@ import { User } from "../../domain/entities/users_entity";
 export class UsersUsecase {
   constructor(private readonly repository: UsersRepository) {}
 
-  findAll(): User[] {
+  async findAll(): Promise<User[]> {
     return this.repository.findAll();
   }
 }
