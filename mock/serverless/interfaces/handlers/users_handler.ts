@@ -18,3 +18,16 @@ export const index: APIGatewayProxyHandler = async (event, context) => {
 
   return controller.index(event, context);
 };
+
+export const create: APIGatewayProxyHandler = async (event, context) => {
+  const db = new AWS.DynamoDB({
+    region: "us-west-2",
+    accessKeyId: "fakeMyKeyId",
+    secretAccessKey: "fakeSecretAccessKey",
+    endpoint: "http://db:8000",
+  });
+  container.register("usersStore", { useValue: new DynamoStore(User, db) });
+  const controller = container.resolve(UsersController);
+
+  return controller.create(event, context);
+};

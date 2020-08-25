@@ -13,4 +13,15 @@ export class UsersRepository {
 
     return users;
   }
+
+  async insert(name: string, age: number): Promise<User> {
+    const user = new User();
+    user.id = "hoge";
+    user.name = name;
+    user.age = age;
+
+    await this.store.put(user).exec();
+
+    return user;
+  }
 }

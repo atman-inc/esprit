@@ -9,4 +9,8 @@ export class UsersUsecase {
   async findAll(): Promise<User[]> {
     return this.repository.findAll();
   }
+
+  async create(name: string, age: number): Promise<User> {
+    return this.repository.insert(name, age);
+  }
 }

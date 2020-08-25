@@ -38,6 +38,17 @@ const serverlessConfiguration: Serverless = {
         },
       ],
     },
+    users_create: {
+      handler: "interfaces/handlers/users_handler.create",
+      events: [
+        {
+          http: {
+            method: "post",
+            path: "users",
+          },
+        },
+      ],
+    },
   },
 };
 

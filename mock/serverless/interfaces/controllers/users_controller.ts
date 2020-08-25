@@ -14,11 +14,27 @@ export class UsersController {
     _event: APIGatewayProxyEvent,
     _context: Context
   ): Promise<APIGatewayProxyResult> {
-    const users = this.usecase.findAll();
+    const users = await this.usecase.findAll();
 
     return {
       statusCode: 200,
       body: JSON.stringify(users),
+    };
+  }
+
+  async create(
+    event: APIGatewayProxyEvent,
+    _context: Context
+  ): Promise<APIGatewayProxyResult> {
+    const requestBody = JSON.parse(event.body);
+    const user = this.usecase.create(
+      requestBody.name,
+      parseInt(requestBody.age)
+    );
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(user),
     };
   }
 }
