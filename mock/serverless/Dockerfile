@@ -5,5 +5,5 @@ RUN mkdir /esprit
 ENV APP_ROOT /esprit
 WORKDIR $APP_ROOT
 
-RUN npm i
+RUN npm i -g serverless
 ENV PATH $PATH:$APP_ROOT/node_modules/.bin
