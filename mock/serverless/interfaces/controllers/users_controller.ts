@@ -1,40 +1,21 @@
 import { UsersUsecase } from "../../application/usecases/users_usecase";
-import {
-  Context,
-  APIGatewayProxyEvent,
-  APIGatewayProxyResult,
-} from "aws-lambda";
 import { injectable } from "tsyringe";
+import express from "express";
 
 @injectable()
 export class UsersController {
   constructor(private readonly usecase: UsersUsecase) {}
 
-  async index(
-    _event: APIGatewayProxyEvent,
-    _context: Context
-  ): Promise<APIGatewayProxyResult> {
+  async index(_req: express.Request, res: express.Response) {
     const users = await this.usecase.findAll();
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify(users),
-    };
+    res.send(JSON.stringify(users));
   }
 
-  async create(
-    event: APIGatewayProxyEvent,
-    _context: Context
-  ): Promise<APIGatewayProxyResult> {
-    const requestBody = JSON.parse(event.body);
-    const user = this.usecase.create(
-      requestBody.name,
-      parseInt(requestBody.age)
-    );
+  async create(req: express.Request, res: express.Response) {
+    const { name, age } = req.body;
+    const user = this.usecase.create(name, parseInt(age));
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify(user),
-    };
+    res.send(JSON.stringify(user));
   }
 }

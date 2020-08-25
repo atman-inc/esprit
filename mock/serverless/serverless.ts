@@ -27,24 +27,13 @@ const serverlessConfiguration: Serverless = {
     },
   },
   functions: {
-    users_index: {
-      handler: "interfaces/handlers/users_handler.index",
+    users: {
+      handler: "interfaces/handlers/users_handler.handler",
       events: [
         {
           http: {
-            method: "get",
-            path: "users",
-          },
-        },
-      ],
-    },
-    users_create: {
-      handler: "interfaces/handlers/users_handler.create",
-      events: [
-        {
-          http: {
-            method: "post",
-            path: "users",
+            path: "/{any+}",
+            method: "ANY",
           },
         },
       ],
