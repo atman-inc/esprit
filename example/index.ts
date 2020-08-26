@@ -1,11 +1,11 @@
-import fastify from 'fastify'
+import fastify from "fastify";
 
 const app = fastify({
-    logger: true
-})
+  logger: true,
+});
 
-app.get('/', (req, reply) => {
-    reply.send({ hello: 'world' })
-})
+app.get("/", (req, reply) => {
+  reply.send({ hello: "world" });
+});
 
-app.listen(3000, "0.0.0.0")
+app.listen(3000, "0.0.0.0");
