@@ -30,13 +30,11 @@ build: ##  ## make build
 # --------------------
 # DB
 # --------------------
-DB_CONFIG_FILE:=lib/infrastructure/orm/ormconfig.ts
-
 db/migration/generate:
-	${APP_RUN_CMD} npm run typeorm -- migration:generate --config ${DB_CONFIG_FILE} --name ${NAME}
+	${APP_RUN_CMD} npm run typeorm -- migration:generate --name ${NAME}
 db/migration/run:
-	${APP_RUN_CMD} npm run typeorm -- migration:run --config ${DB_CONFIG_FILE}
+	${APP_RUN_CMD} npm run typeorm -- migration:run
 db/migration/revert:
-	${APP_RUN_CMD} npm run typeorm -- migration:revert --config ${DB_CONFIG_FILE}
+	${APP_RUN_CMD} npm run typeorm -- migration:revert
 db/entity/create:
-	${APP_RUN_CMD} npm run typeorm -- entity:create --config ${DB_CONFIG_FILE} --name ${NAME}
+	${APP_RUN_CMD} npm run typeorm -- entity:create --name ${NAME}
