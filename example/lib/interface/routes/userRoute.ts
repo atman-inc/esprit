@@ -1,9 +1,9 @@
-import { FastifyInstance } from "fastify";
+import { FastifyInstance, FastifyPlugin } from "fastify";
 import { container } from "tsyringe";
 import { UserController } from "../controllers/userController";
 
-module.exports = async function (app: FastifyInstance) {
-  app.get(
+export const userRoute: FastifyPlugin = async (fastify: FastifyInstance) => {
+  fastify.get(
     "/users",
     {
       schema: {
@@ -13,7 +13,7 @@ module.exports = async function (app: FastifyInstance) {
             items: {
               type: "object",
               properties: {
-                id: { type: "integer" },
+                id: { type: "number" },
                 name: { type: "string" },
               },
             },
