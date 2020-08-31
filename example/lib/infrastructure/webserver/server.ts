@@ -12,7 +12,9 @@ export const createServer = async (): Promise<FastifyInstance> => {
 
   const connection = await createConnection();
   container.register("userRepository", {
-    useValue: new UserRepository(connection.getRepository(User)),
+    useFactory: () => {
+      return new UserRepository(connection.getRepository(User));
+    },
   });
 
   server.register(userRoute);
