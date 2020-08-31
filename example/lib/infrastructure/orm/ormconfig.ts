@@ -16,9 +16,9 @@ module.exports = {
   username: dbConfig.user,
   password: dbConfig.password,
   database: dbConfig.name,
-  entities: ["entities/*.ts"],
+  entities: ["lib/infrastructure/orm/entities/*.ts"],
   migrationsTableName: "migration_table",
-  migrations: ["migrations/*.ts"],
+  migrations: ["lib/infrastructure/orm/migrations/*.ts"],
   cli: {
     entitiesDir: "lib/infrastructure/orm/entities",
     migrationsDir: "lib/infrastructure/orm/migrations",
