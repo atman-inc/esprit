@@ -19,6 +19,7 @@ module.exports = {
   entities: ["lib/infrastructure/orm/entities/*.ts"],
   migrationsTableName: "migration_table",
   migrations: ["lib/infrastructure/orm/migrations/*.ts"],
+  factories: ["lib/infrastructure/orm/factories/**/*{.ts,.js}"],
   cli: {
     entitiesDir: "lib/infrastructure/orm/entities",
     migrationsDir: "lib/infrastructure/orm/migrations",
