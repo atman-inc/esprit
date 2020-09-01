@@ -1,8 +1,12 @@
 import { FastifyInstance, FastifyPlugin } from "fastify";
 import { container } from "tsyringe";
-import { UserController } from "../controllers/userController";
+import { UserController } from "../../../interface/controllers/userController";
 
-export const userRoute: FastifyPlugin = async (fastify: FastifyInstance) => {
+export const userRoute: FastifyPlugin = async (
+  fastify: FastifyInstance,
+  opt,
+  next
+) => {
   const controller = container.resolve(UserController);
 
   fastify.get(
@@ -25,4 +29,6 @@ export const userRoute: FastifyPlugin = async (fastify: FastifyInstance) => {
     },
     () => controller.index()
   );
+
+  next();
 };
