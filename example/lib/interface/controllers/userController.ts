@@ -1,13 +1,16 @@
-import { UserUsecase } from "../../application/usecases/userUsecase";
-import { FastifyRequest, FastifyReply } from "fastify";
-import { injectable } from "tsyringe";
+import { injectable, inject } from "tsyringe";
+import { UserGetListUsecase } from "../../application/usecases/user/list/userGetListUsecase";
 
 @injectable()
 export class UserController {
-  constructor(private readonly userUsecase: UserUsecase) {}
+  constructor(
+    @inject("UserGetListUsecase")
+    private readonly getListUsecase: UserGetListUsecase
+  ) {}
 
-  async index(_: FastifyRequest, reply: FastifyReply) {
-    const users = await this.userUsecase.findAll();
-    reply.send(users);
+  async index() {
+    const users = await this.getListUsecase.handle();
+
+    return users;
   }
 }

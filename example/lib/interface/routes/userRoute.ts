@@ -23,8 +23,6 @@ export const userRoute: FastifyPlugin = async (fastify: FastifyInstance) => {
         },
       },
     },
-    (request, reply) => {
-      controller.index(request, reply);
-    }
+    () => controller.index()
   );
 };

@@ -3,7 +3,8 @@ import { createConnection } from "typeorm";
 import { container } from "tsyringe";
 import { User } from "../orm/entities/user";
 import { UserRepository } from "../repositories/userRepository";
-import { userRoute } from "../..//interface/routes/userRoute";
+import { userRoute } from "../../interface/routes/userRoute";
+import { UserGetListInteractor } from "../../application/interactors/user/list/userGetListInteractor";
 
 export const createServer = async (): Promise<FastifyInstance> => {
   const server = fastify({
@@ -11,7 +12,8 @@ export const createServer = async (): Promise<FastifyInstance> => {
   });
 
   const connection = await createConnection();
-  container.register("userRepository", {
+  container.register("UserGetListUsecase", { useClass: UserGetListInteractor });
+  container.register("UserRepository", {
     useFactory: () => {
       return new UserRepository(connection.getRepository(User));
     },
