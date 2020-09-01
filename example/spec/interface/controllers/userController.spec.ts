@@ -5,6 +5,7 @@ describe("#index", () => {
   const mockUsecase = {
     handle: jest.fn(),
   };
+
   mockUsecase.handle.mockReturnValue([
     new User(1, "taro"),
     new User(2, "hanako"),
