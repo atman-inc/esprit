@@ -23,7 +23,7 @@ help: ## print this message
 up: ## up application ## make up
 	${DOCKER_CMD} up
 down: ##  ## make down
-	${DOCKER_CMD} down
+	${DOCKER_CMD} down --volume
 build: ##  ## make build
 	${DOCKER_CMD} build
 test:
