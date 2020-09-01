@@ -4,6 +4,7 @@ services:
     build: .
     volumes:
       - .:/esprit
+      - /esprit/node_modules
     ports:
       - "3000:3000"
     command: npm run dev
