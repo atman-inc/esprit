@@ -9,6 +9,7 @@ paths:
   /users:
     get:
       summary: users
+      operationId: getUserList
       description: |-
         users
       responses:
