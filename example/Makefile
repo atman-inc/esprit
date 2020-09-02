@@ -28,6 +28,8 @@ build: ##  ## make build
 	${DOCKER_CMD} build
 test:
 	${APP_RUN_CMD} npm run test
+console:
+	${APP_RUN_CMD} /bin/bash
 
 # --------------------
 # DB
