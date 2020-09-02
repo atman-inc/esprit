@@ -1,6 +1,6 @@
 import fastify, { FastifyInstance } from "fastify";
 import { setup } from "./setup";
-import { userRoute } from "./routes/userRoute";
+import openapiGlue from "fastify-openapi-glue";
 
 export const createServer = async (): Promise<FastifyInstance> => {
   const server = fastify({
@@ -9,7 +9,10 @@ export const createServer = async (): Promise<FastifyInstance> => {
 
   await setup();
 
-  server.register(userRoute);
+  server.register(openapiGlue, {
+    specification: `${__dirname}/swagger.bundle.json`,
+    service: `${__dirname}/service.ts`,
+  });
 
   return server;
 };
