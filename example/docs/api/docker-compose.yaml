@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  swagger-ui-watcher:
+    build: swagger-ui-watcher
+    ports:
+      - 8001:8000
+    volumes:
+      - ./swagger:/swagger
+    command: yarn run start
+    environment:
+      - SWAGGER_YAML_FILE=/swagger/swagger.yaml
+      - SWAGGER_BUNDLE_JSON_FILE=/swagger/swagger.bundle.json

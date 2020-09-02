@@ -1,0 +1,19 @@
+{
+  "name": "swagger-ui-watcher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "yarn run swagger-ui-watcher --no-open --host 0.0.0.0 $SWAGGER_YAML_FILE",
+    "resolve-allof": "node cmd/resolve-allof.js",
+    "generate-swaggger-bundle": "yarn run swagger-ui-watcher $SWAGGER_YAML_FILE -b $SWAGGER_BUNDLE_JSON_FILE && yarn run resolve-allof $SWAGGER_BUNDLE_JSON_FILE $SWAGGER_BUNDLE_JSON_FILE"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "json-schema-merge-allof": "^0.7.0",
+    "json-schema-resolve-allof": "^1.5.0",
+    "swagger-ui-watcher": "^2.1.6"
+  }
+}
