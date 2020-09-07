@@ -67,4 +67,30 @@ describe("UserRepository", () => {
       );
     });
   });
+
+  describe("#findByEmail", () => {
+    const email = "test@example.com";
+    const subject = async () => {
+      const repo = new UserRepository(getRepository(User));
+      return repo.findByEmail(email);
+    };
+
+    describe("when user does not exist", () => {
+      it("return undefined", async () => {
+        expect(await subject()).toBeUndefined();
+      });
+    });
+
+    describe("when user exist", () => {
+      beforeAll(async () => {
+        await factory(User)({ email: email }).create();
+      });
+
+      it("return user", async () => {
+        const user = await subject();
+        expect(user).not.toBeUndefined();
+        expect(user?.email).toBe(email);
+      });
+    });
+  });
 });

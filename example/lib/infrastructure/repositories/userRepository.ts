@@ -25,6 +25,12 @@ export class UserRepository implements UserRepositoryInterface {
     return this.cloneUser(ormUser);
   }
 
+  async findByEmail(email: string): Promise<User | undefined> {
+    const dbUser = await this.db.findOne({ where: { email: email } });
+
+    return dbUser ? this.cloneUser(dbUser) : undefined;
+  }
+
   private cloneUser(ormUser: ORMUser): User {
     return new User(
       ormUser.id,
