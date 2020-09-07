@@ -9,7 +9,30 @@ export class UserRepository implements UserRepositoryInterface {
   async findAll(): Promise<User[]> {
     const dbUsers = await this.db.find();
     return dbUsers.map((u) => {
-      return new User(u.id, u.name);
+      return this.cloneUser(u);
     });
+  }
+
+  async insert(user: User): Promise<User> {
+    const ormUser = new ORMUser();
+    ormUser.name = user.name;
+    ormUser.email = user.email;
+    ormUser.birthday = user.birthday;
+
+    await this.db.save(ormUser);
+
+    return this.cloneUser(ormUser);
+  }
+
+  private cloneUser(ormUser: ORMUser): User {
+    return new User(
+      ormUser.id,
+      ormUser.name,
+      ormUser.email,
+      ormUser.birthday,
+      ormUser.icon || null,
+      ormUser.createdAt,
+      ormUser.updatedAt
+    );
   }
 }
