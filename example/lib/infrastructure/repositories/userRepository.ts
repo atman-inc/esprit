@@ -18,6 +18,7 @@ export class UserRepository implements UserRepositoryInterface {
     ormUser.name = user.name;
     ormUser.email = user.email;
     ormUser.birthday = user.birthday;
+    ormUser.icon = "";
 
     await this.db.save(ormUser);
 

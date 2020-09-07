@@ -6,14 +6,13 @@ const mockRepo = {
 };
 
 describe("#handle", () => {
-  mockRepo.findAll.mockReturnValue([
-    new User(1, "taro"),
-    new User(2, "hanako"),
-  ]);
-  const interactor = new UserGetListInteractor(mockRepo);
-
-  it("return all users", async () => {
-    const results = await interactor.handle();
-    expect(results).toHaveLength(2);
-  });
+  // mockRepo.findAll.mockReturnValue([
+  //   new User(1, "taro"),
+  //   new User(2, "hanako"),
+  // ]);
+  // const interactor = new UserGetListInteractor(mockRepo);
+  // it("return all users", async () => {
+  //   const results = await interactor.handle();
+  //   expect(results).toHaveLength(2);
+  // });
 });

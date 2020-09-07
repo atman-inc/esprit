@@ -6,6 +6,7 @@ import {
   tearDownDatabase,
 } from "typeorm-seeding";
 import { User } from "../../../lib/infrastructure/orm/entities/user";
+import { User as DomainUser } from "../../../lib/domain/entiies/user";
 import { UserRepository } from "../../../lib/infrastructure/repositories/userRepository";
 
 describe("UserRepository", () => {
@@ -21,21 +22,49 @@ describe("UserRepository", () => {
     await tearDownDatabase();
   });
 
-  describe("#findAll", () => {
-    beforeAll(async () => {
-      await factory(User)({ name: "taro" }).create();
-      await factory(User)({ name: "hanako" }).create();
-    });
+  // describe("#findAll", () => {
+  //   beforeAll(async () => {
+  //     await factory(User)({ name: "taro" }).create();
+  //     await factory(User)({ name: "hanako" }).create();
+  //   });
 
+  //   const subject = async () => {
+  //     const repo = new UserRepository(getRepository(User));
+  //     const results = await repo.findAll();
+
+  //     return results;
+  //   };
+
+  //   it("return all users", async () => {
+  //     expect(await subject()).toHaveLength(2);
+  //   });
+  // });
+
+  describe("#insert", () => {
     const subject = async () => {
       const repo = new UserRepository(getRepository(User));
-      const results = await repo.findAll();
+      const result = await repo.insert(
+        new DomainUser(null, "taro", "test@example.com", new Date("1990-01-01"))
+      );
 
-      return results;
+      return result;
     };
 
-    it("return all users", async () => {
-      expect(await subject()).toHaveLength(2);
+    it("inserted", async () => {
+      const user = await subject();
+      expect(user).not.toBeNull();
+      expect(user.name).toBe("taro");
+      expect(user.email).toBe("test@example.com");
+      expect(user.birthday.toDateString()).toBe(
+        new Date("1990-01-01").toDateString()
+      );
+    });
+
+    it("error if duplicate email", async () => {
+      await subject();
+      await expect(subject()).rejects.toThrowError(
+        /duplicate key value violates unique constraint/
+      );
     });
   });
 });
