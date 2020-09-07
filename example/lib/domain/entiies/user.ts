@@ -4,8 +4,8 @@ export class User {
     public name: string,
     public email: string,
     public birthday: Date,
-    public icon: string | null,
-    public createdAt: Date | null,
-    public updatedAt: Date | null
+    public icon: string | null = null,
+    public createdAt: Date | null = null,
+    public updatedAt: Date | null = null
   ) {}
 }
