@@ -1,10 +1,11 @@
 import fastify, { FastifyInstance } from "fastify";
 import { setup } from "./setup";
 import openapiGlue from "fastify-openapi-glue";
+import { env } from "process";
 
 export const createServer = async (): Promise<FastifyInstance> => {
   const server = fastify({
-    logger: true,
+    logger: env.NODE_ENV === "development",
   });
 
   await setup();

@@ -12,7 +12,9 @@ export class UserCreateInteractor implements UserCreateUsecase {
   ) {}
 
   async handle(inputData: UserCreateInputData): Promise<UserCredential> {
-    const duplicateUser = this.userRepository.findByEmail(inputData.email);
+    const duplicateUser = await this.userRepository.findByEmail(
+      inputData.email
+    );
     if (duplicateUser) {
       throw new Error("duplicated user");
     }
