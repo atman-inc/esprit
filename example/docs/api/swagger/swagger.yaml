@@ -50,6 +50,8 @@ paths:
     get:
       summary: Get Me
       operationId: getMe
+      security:
+        - bearerAuth: []
       description: |-
         自分のユーザー情報を取得する
       responses:
@@ -62,6 +64,8 @@ paths:
     patch:
       summary: Patch Me
       operationId: patchMe
+      security:
+        - bearerAuth: []
       description: |-
         自分のユーザー情報を更新する
       requestBody:
@@ -78,3 +82,9 @@ paths:
             application/json:
               schema:
                 $ref: './response/user_response.yaml'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
