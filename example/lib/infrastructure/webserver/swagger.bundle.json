@@ -11,40 +11,280 @@
     }
   ],
   "paths": {
-    "/users": {
-      "get": {
-        "summary": "users",
-        "operationId": "getUserList",
-        "description": "users",
+    "/signin": {
+      "post": {
+        "summary": "Signin",
+        "operationId": "signin",
+        "description": "サインイン",
+        "requestBody": {
+          "description": "Signin parameter",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "SgininParam",
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "test@example.com"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "users",
+            "description": "user credential response",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "integer",
-                        "example": 1
-                      },
-                      "name": {
-                        "type": "string",
-                        "example": "taro"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "name"
-                    ]
-                  }
+                  "title": "UserCredentialResponse",
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "token"
+                  ]
                 }
               }
             }
           }
         }
+      }
+    },
+    "/users": {
+      "post": {
+        "summary": "Create User",
+        "operationId": "postUser",
+        "description": "ユーザーの新規作成",
+        "requestBody": {
+          "description": "Create user parameter",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "CreateUserParam",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "taro",
+                    "maxLength": 50
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "test@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "pattern": "^[a-z\\d]{8,100}$",
+                    "example": "password1234"
+                  },
+                  "birthday": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2020-01-01T00:00:00.000Z"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "password",
+                  "birthday"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "user credential response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "UserCredentialResponse",
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "token"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "summary": "Get Me",
+        "operationId": "getMe",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "自分のユーザー情報を取得する",
+        "responses": {
+          "200": {
+            "description": "User response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "UserResponse",
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "format": "int64",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "taro"
+                    },
+                    "icon": {
+                      "type": "string",
+                      "format": "uri",
+                      "example": "http://example.com/icon.jpg"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2000-01-01T00:00:01.000Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2000-01-01T00:00:01.000Z"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "created_at",
+                    "updated_at"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Patch Me",
+        "operationId": "patchMe",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "自分のユーザー情報を更新する",
+        "requestBody": {
+          "description": "Update user parameter",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "title": "UpdateUserParam",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "taro",
+                    "maxLength": 50
+                  },
+                  "profile": {
+                    "type": "string",
+                    "example": "profile",
+                    "maxLength": 160
+                  },
+                  "birthday": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2020-01-01T00:00:00.000Z"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "UserResponse",
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "format": "int64",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "taro"
+                    },
+                    "icon": {
+                      "type": "string",
+                      "format": "uri",
+                      "example": "http://example.com/icon.jpg"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2000-01-01T00:00:01.000Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2000-01-01T00:00:01.000Z"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "created_at",
+                    "updated_at"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
