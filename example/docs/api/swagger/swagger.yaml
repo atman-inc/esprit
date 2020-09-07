@@ -7,27 +7,22 @@ servers:
     description: local mock server
 paths:
   /users:
-    get:
-      summary: users
-      operationId: getUserList
+    post:
+      summary: Create User
+      operationId: postUser
       description: |-
-        users
+        ユーザーの新規作成
+      requestBody:
+        description: Create user parameter
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './requests/create_user_params.yaml'
       responses:
         '200':
-          description: users
+          description: user credential response
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                      example: 1
-                    name:
-                      type: string
-                      example: taro
-                  required:
-                    - id
-                    - name
+                $ref: './response/user_credential_response.yaml'

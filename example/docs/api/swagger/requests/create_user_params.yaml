@@ -1,0 +1,24 @@
+title: CreateUserParam
+type: object
+properties:
+  name:
+    type: string
+    example: taro
+    maxLength: 50
+  email:
+    type: string
+    format: email
+    example: test@example.com
+  password:
+    type: string
+    pattern: ^[a-z\d]{8,100}$
+    example: password1234
+  birthday:
+    type: string
+    format: date
+    example: 2020-01-01
+required:
+  - name
+  - email
+  - password
+  - birthday
