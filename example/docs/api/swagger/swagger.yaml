@@ -47,6 +47,18 @@ paths:
               schema:
                 $ref: './response/user_credential_response.yaml'
   /users/me:
+    get:
+      summary: Get Me
+      operationId: getMe
+      description: |-
+        自分のユーザー情報を取得する
+      responses:
+        '200':
+          description: User response
+          content:
+            application/json:
+              schema:
+                $ref: './response/user_response.yaml'
     patch:
       summary: Patch Me
       operationId: patchMe
@@ -61,7 +73,7 @@ paths:
               $ref: './requests/update_user_params.yaml'
       responses:
         '200':
-          description: user credential response
+          description: User response
           content:
             application/json:
               schema:
