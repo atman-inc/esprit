@@ -46,3 +46,23 @@ paths:
             application/json:
               schema:
                 $ref: './response/user_credential_response.yaml'
+  /users/me:
+    patch:
+      summary: Patch Me
+      operationId: patchMe
+      description: |-
+        自分のユーザー情報を更新する
+      requestBody:
+        description: Update user parameter
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: './requests/update_user_params.yaml'
+      responses:
+        '200':
+          description: user credential response
+          content:
+            application/json:
+              schema:
+                $ref: './response/user_response.yaml'

@@ -1,0 +1,18 @@
+title: UpdateUserParam
+type: object
+properties:
+  name:
+    type: string
+    example: taro
+    maxLength: 50
+  profile:
+    type: string
+    example: profile
+    maxLength: 160
+  birthday:
+    type: string
+    format: date
+    example: 2020-01-01
+  icon:
+    type: string
+    format: binary
