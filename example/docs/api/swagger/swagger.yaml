@@ -6,6 +6,26 @@ servers:
   - url: 'http://localhost:3000'
     description: local mock server
 paths:
+  /signin:
+    post:
+      summary: Signin
+      operationId: signin
+      description: |-
+        サインイン
+      requestBody:
+        description: Signin parameter
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './requests/signin_param.yaml'
+      responses:
+        '200':
+          description: user credential response
+          content:
+            application/json:
+              schema:
+                $ref: './response/user_credential_response.yaml'
   /users:
     post:
       summary: Create User
