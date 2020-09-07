@@ -5,6 +5,7 @@ properties:
     type: string
     example: taro
     maxLength: 50
+    minLength: 1
   email:
     type: string
     format: email
