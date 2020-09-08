@@ -21,6 +21,15 @@ class Service {
       request.body.birthday
     );
   }
+
+  async signin(
+    request: FastifyRequest<{
+      Body: { email: string; password: string };
+    }>
+  ) {
+    const controller = container.resolve(UserController);
+    return controller.signin(request.body.email, request.body.password);
+  }
 }
 
 module.exports = () => new Service();

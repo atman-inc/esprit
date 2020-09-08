@@ -17,7 +17,7 @@ export class UserRepository implements UserRepositoryInterface {
     const ormUser = new ORMUser();
     ormUser.name = user.name;
     ormUser.email = user.email;
-    ormUser.encrypted_password = "encrypted_password";
+    ormUser.encrypted_password = user.encrypted_password;
     ormUser.birthday = user.birthday;
     ormUser.icon = "";
 

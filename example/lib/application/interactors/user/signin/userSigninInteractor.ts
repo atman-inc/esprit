@@ -8,7 +8,7 @@ import bcrypt from "bcrypt";
 @injectable()
 export class UserSigninInteractor implements UserSigninUsecase {
   constructor(
-    @inject("userRepository") private readonly userRepository: UserRepository
+    @inject("UserRepository") private readonly userRepository: UserRepository
   ) {}
 
   async handle(inputData: UserSigninInputData): Promise<UserCredential> {

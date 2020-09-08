@@ -1,7 +1,27 @@
 import { createServer } from "../../lib/infrastructure/webserver/server";
 import { FastifyInstance } from "fastify";
-import { useRefreshDatabase, tearDownDatabase } from "typeorm-seeding";
+import {
+  useRefreshDatabase,
+  tearDownDatabase,
+  useSeeding,
+  factory,
+} from "typeorm-seeding";
 import { User } from "../../lib/infrastructure/orm/entities/user";
+import bcrypt from "bcrypt";
+
+let server: FastifyInstance;
+beforeAll(async () => {
+  server = await createServer();
+  return useSeeding();
+});
+
+beforeEach(async () => {
+  return useRefreshDatabase();
+});
+
+afterAll(async () => {
+  return tearDownDatabase();
+});
 
 // describe("GET /users", () => {
 // let server: FastifyInstance;
@@ -27,17 +47,12 @@ import { User } from "../../lib/infrastructure/orm/entities/user";
 // });
 
 describe("POST /users", () => {
-  let server: FastifyInstance;
   let params: {
-    name?: string | null;
-    email?: string | null;
-    password?: string | null;
-    birthday?: string | null;
+    name?: string;
+    email?: string;
+    password?: string;
+    birthday?: string;
   } = {};
-
-  beforeAll(async () => {
-    server = await createServer();
-  });
 
   beforeEach(async () => {
     params = {
@@ -46,14 +61,6 @@ describe("POST /users", () => {
       password: "password",
       birthday: "1990-01-01",
     };
-  });
-
-  afterEach(async () => {
-    await useRefreshDatabase();
-  });
-
-  afterAll(async () => {
-    await tearDownDatabase();
   });
 
   const subject = async () => {
@@ -71,7 +78,7 @@ describe("POST /users", () => {
 
   describe("when invalid parameter", () => {
     describe("with name", () => {
-      [null, "", "x".repeat(51)].forEach((p) => {
+      ["", "x".repeat(51)].forEach((p) => {
         it("invalid", async () => {
           params.name = p;
           const resp = await subject();
@@ -81,7 +88,7 @@ describe("POST /users", () => {
     });
 
     describe("with email", () => {
-      [null, "", "hoge"].forEach((p) => {
+      ["", "hoge"].forEach((p) => {
         it("invalid", async () => {
           params.email = p;
           const resp = await subject();
@@ -91,7 +98,7 @@ describe("POST /users", () => {
     });
 
     describe("with password", () => {
-      [null, "", "pass"].forEach((p) => {
+      ["", "pass"].forEach((p) => {
         it("invalid", async () => {
           params.email = p;
           const resp = await subject();
@@ -101,7 +108,62 @@ describe("POST /users", () => {
     });
 
     describe("with birthday", () => {
-      [null, "", "pass"].forEach((p) => {
+      ["", "pass"].forEach((p) => {
+        it("invalid", async () => {
+          params.email = p;
+          const resp = await subject();
+          expect(resp.statusCode).toBe(400);
+        });
+      });
+    });
+  });
+});
+
+describe("POST /signin", () => {
+  let params: {
+    email?: string;
+    password?: string;
+  } = {};
+
+  beforeEach(async () => {
+    params = {
+      email: "test@example.com",
+      password: "password",
+    };
+  });
+
+  const subject = async () => {
+    return await server.inject({
+      method: "POST",
+      url: "/signin",
+      payload: params,
+    });
+  };
+
+  it("succeeded", async () => {
+    const encrypted_password = await bcrypt.hash(params.password, 10);
+    await factory(User)().create({
+      email: params.email,
+      encrypted_password: encrypted_password,
+    });
+
+    const resp = await subject();
+    expect(resp.statusCode).toBe(200);
+  });
+
+  describe("when invalid parameter", () => {
+    describe("with email", () => {
+      ["", "hoge"].forEach((p) => {
+        it("invalid", async () => {
+          params.email = p;
+          const resp = await subject();
+          expect(resp.statusCode).toBe(400);
+        });
+      });
+    });
+
+    describe("with password", () => {
+      ["", "pass"].forEach((p) => {
         it("invalid", async () => {
           params.email = p;
           const resp = await subject();
