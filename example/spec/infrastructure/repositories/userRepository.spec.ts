@@ -61,7 +61,7 @@ describe("UserRepository", () => {
       expect(user).not.toBeNull();
       expect(user.name).toBe("taro");
       expect(user.email).toBe("test@example.com");
-      expect(user.encrypted_password).toBe("encrypted_password");
+      expect(user.encryptedPassword).toBe("encrypted_password");
       expect(user.birthday.toDateString()).toBe(
         new Date("1990-01-01").toDateString()
       );

@@ -141,10 +141,10 @@ describe("POST /signin", () => {
   };
 
   it("succeeded", async () => {
-    const encrypted_password = await bcrypt.hash(params.password, 10);
+    const encryptedPassword = await bcrypt.hash(params.password, 10);
     await factory(User)().create({
       email: params.email,
-      encrypted_password: encrypted_password,
+      encryptedPassword: encryptedPassword,
     });
 
     const resp = await subject();

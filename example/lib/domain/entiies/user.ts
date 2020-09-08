@@ -3,7 +3,7 @@ export class User {
     public id: number | null,
     public name: string,
     public email: string,
-    public encrypted_password: string,
+    public encryptedPassword: string,
     public birthday: Date,
     public icon: string | null = null,
     public createdAt: Date | null = null,

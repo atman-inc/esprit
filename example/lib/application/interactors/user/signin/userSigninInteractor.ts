@@ -19,7 +19,7 @@ export class UserSigninInteractor implements UserSigninUsecase {
 
     const matchedPassword = await bcrypt.compare(
       inputData.password,
-      user.encrypted_password
+      user.encryptedPassword
     );
     if (!matchedPassword) {
       throw new Error("invalid password");

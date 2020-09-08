@@ -20,7 +20,7 @@ export class User {
   email: string;
 
   @Column()
-  encrypted_password: string;
+  encryptedPassword: string;
 
   @Column()
   birthday: Date;

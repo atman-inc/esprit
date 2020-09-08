@@ -19,13 +19,13 @@ export class UserCreateInteractor implements UserCreateUsecase {
       throw new Error("duplicated user");
     }
 
-    const encrypted_password = await bcyrpt.hash(inputData.password, 10);
+    const encryptedPassword = await bcyrpt.hash(inputData.password, 10);
     const user = await this.userRepository.insert(
       new User(
         null,
         inputData.name,
         inputData.email,
-        encrypted_password,
+        encryptedPassword,
         inputData.birthday
       )
     );
