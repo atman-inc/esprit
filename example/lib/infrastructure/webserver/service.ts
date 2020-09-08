@@ -39,6 +39,13 @@ class Service {
 
     return { token: await reply.jwtSign({ sub: user.id }) };
   }
+
+  async getMe(request: FastifyRequest) {
+    console.log(request.user);
+
+    // TODO
+    return {};
+  }
 }
 
 module.exports = () => new Service();

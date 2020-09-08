@@ -18,6 +18,7 @@ export const createServer = async (): Promise<FastifyInstance> => {
   server.register(openapiGlue, {
     specification: `${__dirname}/swagger.bundle.json`,
     service: `${__dirname}/service.ts`,
+    securityHandlers: `${__dirname}/security.ts`,
   });
 
   return server;
