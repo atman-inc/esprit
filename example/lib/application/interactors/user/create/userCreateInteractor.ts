@@ -20,7 +20,7 @@ export class UserCreateInteractor implements UserCreateUsecase {
     }
 
     const user = await this.userRepository.insert(
-      new User(null, inputData.name, inputData.email, inputData.birthday)
+      new User(null, inputData.name, inputData.email, "", inputData.birthday)
     );
 
     return new UserCredential(user);

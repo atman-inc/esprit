@@ -23,7 +23,13 @@ describe("#handle", () => {
 
   describe("when exist duplicate user", () => {
     mockRepo.findByEmail.mockReturnValueOnce(
-      new User(1, "taro", "test@example.com", new Date("1990-01-01"))
+      new User(
+        1,
+        "taro",
+        "test@example.com",
+        "encrypted_password",
+        new Date("1990-01-01")
+      )
     );
     it("throw error", async () => {
       await expect(subject()).rejects.toThrowError(/duplicated use/);
@@ -32,7 +38,13 @@ describe("#handle", () => {
 
   describe("when does not exist duplicate user", () => {
     mockRepo.insert.mockReturnValueOnce(
-      new User(1, "taro", "test@example.com", new Date("1990-01-01"))
+      new User(
+        1,
+        "taro",
+        "test@example.com",
+        "encrypted_password",
+        new Date("1990-01-01")
+      )
     );
     it("return token", async () => {
       const result = await subject();

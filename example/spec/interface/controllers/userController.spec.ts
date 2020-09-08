@@ -26,7 +26,13 @@ describe("#create", () => {
   };
   mockUsecase.handle.mockReturnValue(
     new UserCredential(
-      new User(1, "taro", "test@example.com", new Date("1990-01-01"))
+      new User(
+        1,
+        "taro",
+        "test@example.com",
+        "encrypted_password",
+        new Date("1990-01-01")
+      )
     )
   );
   const controller = new UserController(mockUsecase, mockUsecase);

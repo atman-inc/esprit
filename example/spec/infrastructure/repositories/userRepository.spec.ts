@@ -44,7 +44,13 @@ describe("UserRepository", () => {
     const subject = async () => {
       const repo = new UserRepository(getRepository(User));
       const result = await repo.insert(
-        new DomainUser(null, "taro", "test@example.com", new Date("1990-01-01"))
+        new DomainUser(
+          null,
+          "taro",
+          "test@example.com",
+          "encrypted_password",
+          new Date("1990-01-01")
+        )
       );
 
       return result;
@@ -55,6 +61,7 @@ describe("UserRepository", () => {
       expect(user).not.toBeNull();
       expect(user.name).toBe("taro");
       expect(user.email).toBe("test@example.com");
+      expect(user.encrypted_password).toBe("encrypted_password");
       expect(user.birthday.toDateString()).toBe(
         new Date("1990-01-01").toDateString()
       );
