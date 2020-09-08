@@ -2,6 +2,11 @@ import { UserSigninInputData } from "../../../../../lib/application/usecases/use
 import { UserSigninInteractor } from "../../../../../lib/application/interactors/user/signin/userSigninInteractor";
 import { User } from "../../../../../lib/domain/entiies/user";
 import bcrypt from "bcrypt";
+import { useSeeding, factory } from "typeorm-seeding";
+
+beforeAll(() => {
+  return useSeeding();
+});
 
 const mockRepo = {
   findAll: jest.fn(),
@@ -27,13 +32,11 @@ describe("#handle", () => {
     it("throw error", async () => {
       const encryptedPassword = await bcrypt.hash("other password", 10);
       mockRepo.findByEmail.mockReturnValueOnce(
-        new User(
-          1,
-          "taro",
-          inputData.email,
-          encryptedPassword,
-          new Date("1990-01-01")
-        )
+        await factory(User)().make({
+          id: 1,
+          email: inputData.email,
+          encryptedPassword: encryptedPassword,
+        })
       );
       await expect(subject()).rejects.toThrowError(/invalid password/);
     });
@@ -43,13 +46,11 @@ describe("#handle", () => {
     it("return user", async () => {
       const encryptedPassword = await bcrypt.hash(inputData.password, 10);
       mockRepo.findByEmail.mockReturnValueOnce(
-        new User(
-          1,
-          "taro",
-          inputData.email,
-          encryptedPassword,
-          new Date("1990-01-01")
-        )
+        await factory(User)().make({
+          id: 1,
+          email: inputData.email,
+          encryptedPassword: encryptedPassword,
+        })
       );
       expect((await subject()).id).toBe(1);
     });
