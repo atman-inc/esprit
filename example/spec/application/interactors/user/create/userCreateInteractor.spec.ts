@@ -40,10 +40,10 @@ describe("#handle", () => {
     mockRepo.insert.mockReturnValueOnce(
       new User(
         1,
-        "taro",
-        "test@example.com",
-        "encrypted_password",
-        new Date("1990-01-01")
+        inputData.name,
+        inputData.email,
+        `encrypted_${inputData.password}`,
+        inputData.birthday
       )
     );
     it("return token", async () => {

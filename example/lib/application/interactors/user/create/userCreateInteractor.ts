@@ -4,6 +4,7 @@ import { UserRepository } from "../../../../domain/repositories/userRepository";
 import { UserCreateInputData } from "../../../usecases/user/create/userCreateInputData";
 import { User } from "../../../../domain/entiies/user";
 import { UserCredential } from "../../../../domain/values/userCredential";
+import bcyrpt from "bcrypt";
 
 @injectable()
 export class UserCreateInteractor implements UserCreateUsecase {
@@ -19,8 +20,15 @@ export class UserCreateInteractor implements UserCreateUsecase {
       throw new Error("duplicated user");
     }
 
+    const encrypted_password = await bcyrpt.hash(inputData.password, 10);
     const user = await this.userRepository.insert(
-      new User(null, inputData.name, inputData.email, "", inputData.birthday)
+      new User(
+        null,
+        inputData.name,
+        inputData.email,
+        encrypted_password,
+        inputData.birthday
+      )
     );
 
     return new UserCredential(user);
