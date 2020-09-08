@@ -1,6 +1,10 @@
 import { UserController } from "../../../lib/interface/controllers/userController";
 import { User } from "../../../lib/domain/entiies/user";
-import { UserCredential } from "../../../lib/domain/values/userCredential";
+import { factory, useSeeding } from "typeorm-seeding";
+
+beforeAll(() => {
+  return useSeeding();
+});
 
 describe("#index", () => {
   // const mockUsecase = {
@@ -24,27 +28,16 @@ describe("#create", () => {
   const mockUsecase = {
     handle: jest.fn(),
   };
-  mockUsecase.handle.mockReturnValue(
-    new UserCredential(
-      new User(
-        1,
-        "taro",
-        "test@example.com",
-        "encrypted_password",
-        new Date("1990-01-01")
-      )
-    )
-  );
   const controller = new UserController(mockUsecase, mockUsecase, mockUsecase);
   const name = "taro";
   const email = "test@example.com";
   const password = "password";
   const birtyday = new Date("1990-01-01");
 
-  it("return user credential", async () => {
+  it("return user", async () => {
+    mockUsecase.handle.mockReturnValue(await factory(User)().make({ id: 1 }));
     const result = await controller.create(name, email, password, birtyday);
-
-    expect(result.token).toBe("token1");
+    expect(result.id).toBe(1);
   });
 });
 
@@ -52,24 +45,13 @@ describe("#signin", () => {
   const mockUsecase = {
     handle: jest.fn(),
   };
-  mockUsecase.handle.mockReturnValue(
-    new UserCredential(
-      new User(
-        1,
-        "taro",
-        "test@example.com",
-        "encrypted_password",
-        new Date("1990-01-01")
-      )
-    )
-  );
   const controller = new UserController(mockUsecase, mockUsecase, mockUsecase);
   const email = "test@example.com";
   const password = "password";
 
-  it("return user credential", async () => {
+  it("return user", async () => {
+    mockUsecase.handle.mockReturnValue(await factory(User)().make({ id: 1 }));
     const result = await controller.signin(email, password);
-
-    expect(result.token).toBe("token1");
+    expect(result.id).toBe(1);
   });
 });
