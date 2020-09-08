@@ -35,7 +35,7 @@ describe("#create", () => {
       )
     )
   );
-  const controller = new UserController(mockUsecase, mockUsecase);
+  const controller = new UserController(mockUsecase, mockUsecase, mockUsecase);
   const name = "taro";
   const email = "test@example.com";
   const password = "password";
@@ -43,6 +43,32 @@ describe("#create", () => {
 
   it("return user credential", async () => {
     const result = await controller.create(name, email, password, birtyday);
+
+    expect(result.token).toBe("token1");
+  });
+});
+
+describe("#signin", () => {
+  const mockUsecase = {
+    handle: jest.fn(),
+  };
+  mockUsecase.handle.mockReturnValue(
+    new UserCredential(
+      new User(
+        1,
+        "taro",
+        "test@example.com",
+        "encrypted_password",
+        new Date("1990-01-01")
+      )
+    )
+  );
+  const controller = new UserController(mockUsecase, mockUsecase, mockUsecase);
+  const email = "test@example.com";
+  const password = "password";
+
+  it("return user credential", async () => {
+    const result = await controller.signin(email, password);
 
     expect(result.token).toBe("token1");
   });
