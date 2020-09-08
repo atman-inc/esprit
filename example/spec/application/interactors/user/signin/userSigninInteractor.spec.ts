@@ -1,7 +1,7 @@
 import { UserSigninInputData } from "../../../../../lib/application/usecases/user/signin/userSigninInputData";
 import { UserSigninInteractor } from "../../../../../lib/application/interactors/user/signin/userSigninInteractor";
-import bcrypt from "bcrypt";
 import { User } from "../../../../../lib/domain/entiies/user";
+import bcrypt from "bcrypt";
 
 const mockRepo = {
   findAll: jest.fn(),
@@ -40,7 +40,7 @@ describe("#handle", () => {
   });
 
   describe("when match password", () => {
-    it("return user credential", async () => {
+    it("return user", async () => {
       const encryptedPassword = await bcrypt.hash(inputData.password, 10);
       mockRepo.findByEmail.mockReturnValueOnce(
         new User(
@@ -51,7 +51,7 @@ describe("#handle", () => {
           new Date("1990-01-01")
         )
       );
-      expect((await subject()).token).toBe("token1");
+      expect((await subject()).id).toBe(1);
     });
   });
 });

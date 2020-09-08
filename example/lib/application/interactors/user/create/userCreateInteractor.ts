@@ -3,7 +3,6 @@ import { UserCreateUsecase } from "../../../usecases/user/create/userCreateUseca
 import { UserRepository } from "../../../../domain/repositories/userRepository";
 import { UserCreateInputData } from "../../../usecases/user/create/userCreateInputData";
 import { User } from "../../../../domain/entiies/user";
-import { UserCredential } from "../../../../domain/values/userCredential";
 import bcyrpt from "bcrypt";
 
 @injectable()
@@ -12,7 +11,7 @@ export class UserCreateInteractor implements UserCreateUsecase {
     @inject("UserRepository") private readonly userRepository: UserRepository
   ) {}
 
-  async handle(inputData: UserCreateInputData): Promise<UserCredential> {
+  async handle(inputData: UserCreateInputData): Promise<User> {
     const duplicateUser = await this.userRepository.findByEmail(
       inputData.email
     );
@@ -31,6 +30,6 @@ export class UserCreateInteractor implements UserCreateUsecase {
       )
     );
 
-    return new UserCredential(user);
+    return user;
   }
 }

@@ -1,6 +1,11 @@
 import { User } from "../../../../../lib/domain/entiies/user";
 import { UserCreateInteractor } from "../../../../../lib/application/interactors/user/create/userCreateInteractor";
 import { UserCreateInputData } from "../../../../../lib/application/usecases/user/create/userCreateInputData";
+import { useSeeding, factory } from "typeorm-seeding";
+
+beforeAll(() => {
+  return useSeeding();
+});
 
 const mockRepo = {
   findAll: jest.fn(),
@@ -22,33 +27,21 @@ describe("#handle", () => {
   };
 
   describe("when exist duplicate user", () => {
-    mockRepo.findByEmail.mockReturnValueOnce(
-      new User(
-        1,
-        "taro",
-        "test@example.com",
-        "encrypted_password",
-        new Date("1990-01-01")
-      )
-    );
     it("throw error", async () => {
+      mockRepo.findByEmail.mockReturnValueOnce(
+        await factory(User)().make({ id: 1 })
+      );
       await expect(subject()).rejects.toThrowError(/duplicated use/);
     });
   });
 
   describe("when does not exist duplicate user", () => {
-    mockRepo.insert.mockReturnValueOnce(
-      new User(
-        1,
-        inputData.name,
-        inputData.email,
-        `encrypted_${inputData.password}`,
-        inputData.birthday
-      )
-    );
-    it("return token", async () => {
+    it("return user", async () => {
+      mockRepo.insert.mockReturnValueOnce(
+        await factory(User)().make({ id: 1 })
+      );
       const result = await subject();
-      expect(result.token).toBe("token1");
+      expect(result.id).toBe(1);
     });
   });
 });

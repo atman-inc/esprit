@@ -1,6 +1,6 @@
 import { UserCreateInputData } from "./userCreateInputData";
-import { UserCredential } from "../../../../domain/values/userCredential";
+import { User } from "../../../../domain/entiies/user";
 
 export interface UserCreateUsecase {
-  handle(inputData: UserCreateInputData): Promise<UserCredential>;
+  handle(inputData: UserCreateInputData): Promise<User>;
 }

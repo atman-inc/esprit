@@ -1,6 +1,6 @@
 import { UserSigninInputData } from "./userSigninInputData";
-import { UserCredential } from "../../../../domain/values/userCredential";
+import { User } from "../../../../domain/entiies/user";
 
 export interface UserSigninUsecase {
-  handle(inputData: UserSigninInputData): Promise<UserCredential>;
+  handle(inputData: UserSigninInputData): Promise<User>;
 }

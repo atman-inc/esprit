@@ -2,8 +2,8 @@ import { injectable, inject } from "tsyringe";
 import { UserRepository } from "../../../../domain/repositories/userRepository";
 import { UserSigninUsecase } from "../../../usecases/user/signin/userSigninUsecase";
 import { UserSigninInputData } from "../../../usecases/user/signin/userSigninInputData";
-import { UserCredential } from "../../../../domain/values/userCredential";
 import bcrypt from "bcrypt";
+import { User } from "../../../../domain/entiies/user";
 
 @injectable()
 export class UserSigninInteractor implements UserSigninUsecase {
@@ -11,7 +11,7 @@ export class UserSigninInteractor implements UserSigninUsecase {
     @inject("UserRepository") private readonly userRepository: UserRepository
   ) {}
 
-  async handle(inputData: UserSigninInputData): Promise<UserCredential> {
+  async handle(inputData: UserSigninInputData): Promise<User> {
     const user = await this.userRepository.findByEmail(inputData.email);
     if (!user) {
       throw new Error("does not exist user");
@@ -25,6 +25,6 @@ export class UserSigninInteractor implements UserSigninUsecase {
       throw new Error("invalid password");
     }
 
-    return new UserCredential(user);
+    return user;
   }
 }
