@@ -20,6 +20,9 @@ export class User {
   email: string;
 
   @Column()
+  encrypted_password: string;
+
+  @Column()
   birthday: Date;
 
   @Column()
