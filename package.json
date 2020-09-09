@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/atman-inc/esprit/issues"
   },
-  "homepage": "https://github.com/atman-inc/esprit#readme"
+  "homepage": "https://github.com/atman-inc/esprit#readme",
+  "dependencies": {
+    "commander": "^6.1.0"
+  }
 }
