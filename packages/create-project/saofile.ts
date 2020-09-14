@@ -5,9 +5,19 @@ const generator: GeneratorConfig = {
     return [
       {
         type: "input",
-        name: "name:",
+        name: "name",
         message: "Project name:",
         default: this.outDirName,
+      },
+      {
+        type: "select",
+        name: "model",
+        message: "API model:",
+        choices: [
+          { name: "REST", value: "rest" },
+          { name: "gRPC", value: "grpc" },
+          { name: "GraphQL", value: "graphql" },
+        ],
       },
     ];
   },
