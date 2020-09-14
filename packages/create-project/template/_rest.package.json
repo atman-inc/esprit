@@ -1,6 +1,0 @@
-{
-  "devDependencies": {},
-  "dependencies": {
-    "fastify": "^3.3.0"
-  }
-}
