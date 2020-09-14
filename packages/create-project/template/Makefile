@@ -26,3 +26,5 @@ down: ##  ## make down
 	${DOCKER_CMD} down
 build: ##  ## make build
 	${DOCKER_CMD} build
+test:
+	${APP_RUN_CMD} npm run test

@@ -4,6 +4,11 @@ services:
     build: .
     volumes:
       - .:/<%= name %>
+      - modules_data:/<%= name %>/node_modules
+    environment:
+      NODE_ENV: development
     ports:
       - "3000:3000"
     command: npm run dev
+volumes:
+  modules_data:

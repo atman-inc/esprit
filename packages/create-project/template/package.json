@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev index.ts",
-    "test": "jest"
+    "test": "jest --runInBand --detectOpenHandles"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",
@@ -21,5 +21,7 @@
     "ts-node-dev": "^1.0.0-pre.60",
     "typescript": "^4.0.2"
   },
-  "dependencies": {}
-} 
+  "dependencies": {
+    
+  }
+}
