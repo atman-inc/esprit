@@ -1,5 +1,6 @@
 import { GeneratorConfig } from "sao";
 import validate from "validate-npm-package-name";
+import { packages } from "./packages";
 
 const generator: GeneratorConfig = {
   prompts() {
@@ -41,13 +42,21 @@ const generator: GeneratorConfig = {
         templateDir: "./template/static",
       },
       {
+        type: "add",
+        files: "**",
+        templateDir: `./template/${this.answers.model}`,
+      },
+      {
         type: "modify",
         files: "package.json",
         handler: (data) => {
-          switch (this.answers.model) {
-            case "REST":
-              data["dependencies"]["fastify"] = "^3.3.0";
-          }
+          const model: "REST" | "gRPC" | "GraphQL" = this.answers.model;
+          Object.assign(data["dependencies"], packages[model].dependencies);
+          Object.assign(
+            data["devDependencies"],
+            packages[model].devDependencies
+          );
+
           return data;
         },
       },
