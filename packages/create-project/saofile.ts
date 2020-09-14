@@ -38,6 +38,7 @@ const generator: GeneratorConfig = {
       {
         type: "add",
         files: "**",
+        templateDir: "./template/static",
       },
       {
         type: "modify",
@@ -51,6 +52,9 @@ const generator: GeneratorConfig = {
         },
       },
     ];
+  },
+  completed() {
+    // this.npmInstall({ npmClient: "npm" });
   },
 };
 
