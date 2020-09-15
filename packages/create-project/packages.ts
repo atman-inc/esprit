@@ -16,8 +16,14 @@ export const packages: {
     devDependencies: {},
   },
   gRPC: {
-    dependencies: {},
-    devDependencies: {},
+    dependencies: {
+      grpc: "^1.24.3",
+    },
+    devDependencies: {
+      "@types/google-protobuf": "^3.7.3",
+      "grpc-tools": "^1.9.1",
+      grpc_tools_node_protoc_ts: "^4.1.3",
+    },
   },
   GraphQL: {
     dependencies: {},
