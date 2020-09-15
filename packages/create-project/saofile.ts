@@ -24,7 +24,6 @@ const generator: GeneratorConfig = {
     ];
   },
   actions() {
-    console.log(this.answers);
     const validation = validate(this.answers.name);
     validation.warnings &&
       validation.warnings.forEach((warn) => {
@@ -64,7 +63,7 @@ const generator: GeneratorConfig = {
     ];
   },
   completed() {
-    // this.npmInstall({ npmClient: "npm" });
+    this.npmInstall({ npmClient: "npm" });
   },
 };
 
