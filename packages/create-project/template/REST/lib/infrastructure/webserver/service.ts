@@ -1,8 +1,8 @@
 class Service {
-  async welcom(request, reply) {
-    reply.send({
+  async welcom() {
+    return {
       message: "welcom <%= name %>"
-    })
+    }
   }
 }
 
