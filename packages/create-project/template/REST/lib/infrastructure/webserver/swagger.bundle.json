@@ -1,0 +1,43 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "<%= name %> API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "local mock server"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "welcom",
+        "operationId": "welcom",
+        "description": "welcom index",
+        "responses": {
+          "200": {
+            "description": "welcom index",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "welcom index"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

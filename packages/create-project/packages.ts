@@ -11,10 +11,9 @@ export const packages: {
   REST: {
     dependencies: {
       fastify: "3.1.0",
+      "fastify-openapi-glue": "^2.2.0",
     },
-    devDependencies: {
-      hoge: "1.1.1",
-    },
+    devDependencies: {},
   },
   gRPC: {
     dependencies: {},

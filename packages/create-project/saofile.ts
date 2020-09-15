@@ -13,8 +13,8 @@ const generator: GeneratorConfig = {
       },
       {
         type: "select",
-        name: "model",
-        message: "API model:",
+        name: "mode",
+        message: "API mode:",
         choices: [
           { name: "REST", value: "rest" },
           { name: "gRPC", value: "grpc" },
@@ -24,6 +24,7 @@ const generator: GeneratorConfig = {
     ];
   },
   actions() {
+    console.log(this.answers);
     const validation = validate(this.answers.name);
     validation.warnings &&
       validation.warnings.forEach((warn) => {
@@ -44,17 +45,17 @@ const generator: GeneratorConfig = {
       {
         type: "add",
         files: "**",
-        templateDir: `./template/${this.answers.model}`,
+        templateDir: `./template/${this.answers.mode}`,
       },
       {
         type: "modify",
         files: "package.json",
         handler: (data) => {
-          const model: "REST" | "gRPC" | "GraphQL" = this.answers.model;
-          Object.assign(data["dependencies"], packages[model].dependencies);
+          const mode: "REST" | "gRPC" | "GraphQL" = this.answers.mode;
+          Object.assign(data["dependencies"], packages[mode].dependencies);
           Object.assign(
             data["devDependencies"],
-            packages[model].devDependencies
+            packages[mode].devDependencies
           );
 
           return data;
