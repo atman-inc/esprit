@@ -1,11 +1,8 @@
-import fastify from "fastify";
+import { createServer } from "./lib/infrastructure/webserver/server";
 
-const app = fastify({
-  logger: true,
-});
+const main = async () => {
+  const server = await createServer();
+  server.listen(3000, "0.0.0.0");
+};
 
-app.get("/", (req, reply) => {
-  reply.send({ hello: "world" });
-});
-
-app.listen(3000, "0.0.0.0");
+main();
