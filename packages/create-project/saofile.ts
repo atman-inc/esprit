@@ -13,8 +13,8 @@ const generator: GeneratorConfig = {
       },
       {
         type: "select",
-        name: "model",
-        message: "API model:",
+        name: "mode",
+        message: "API mode:",
         choices: [
           { name: "REST", value: "rest" },
           { name: "gRPC", value: "grpc" },
@@ -44,18 +44,23 @@ const generator: GeneratorConfig = {
       {
         type: "add",
         files: "**",
-        templateDir: `./template/${this.answers.model}`,
+        templateDir: `./template/${this.answers.mode}`,
       },
       {
         type: "modify",
         files: "package.json",
         handler: (data) => {
-          const model: "REST" | "gRPC" | "GraphQL" = this.answers.model;
-          Object.assign(data["dependencies"], packages[model].dependencies);
+          const mode: "REST" | "gRPC" | "GraphQL" = this.answers.mode;
+          Object.assign(data["dependencies"], packages[mode].dependencies);
           Object.assign(
             data["devDependencies"],
-            packages[model].devDependencies
+            packages[mode].devDependencies
           );
+
+          if (this.answers.mode === "GraphQL") {
+            data["scripts"]["generate"] =
+              "graphql-codegen --config codegen.yml";
+          }
 
           return data;
         },
@@ -63,7 +68,7 @@ const generator: GeneratorConfig = {
     ];
   },
   completed() {
-    // this.npmInstall({ npmClient: "npm" });
+    this.npmInstall({ npmClient: "npm" });
   },
 };
 
