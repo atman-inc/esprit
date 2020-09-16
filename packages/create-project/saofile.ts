@@ -57,6 +57,11 @@ const generator: GeneratorConfig = {
             packages[mode].devDependencies
           );
 
+          if (this.answers.mode === "GraphQL") {
+            data["scripts"]["generate"] =
+              "graphql-codegen --config codegen.yml";
+          }
+
           return data;
         },
       },
