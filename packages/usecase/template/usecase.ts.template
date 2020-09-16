@@ -1,0 +1,3 @@
+export interface <%= usecaseName %>Usecase {
+  handle(): Promise<void>;
+}

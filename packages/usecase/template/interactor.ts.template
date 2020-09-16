@@ -1,0 +1,9 @@
+import { injectable } from "tsyringe";
+import { <%= classUsecaseName %>Usecase } from "../usecases/<%= usecaseName %>Usecase";
+
+@injectable()
+export class <%= classUsecaseName %>Interactor implements <%= classUsecaseName %>Usecase {
+  async handle(): Promise<void> {
+      return;
+  }
+}
