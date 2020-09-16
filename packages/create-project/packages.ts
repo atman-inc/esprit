@@ -26,7 +26,17 @@ export const packages: {
     },
   },
   GraphQL: {
-    dependencies: {},
-    devDependencies: {},
+    dependencies: {
+      apollo: "^2.30.2",
+      "apollo-server": "^2.16.1",
+      graphql: "^15.3.0",
+    },
+    devDependencies: {
+      "@graphql-codegen/cli": "1.17.8",
+      "@graphql-codegen/introspection": "1.17.8",
+      "@graphql-codegen/typescript": "^1.17.8",
+      "@graphql-codegen/typescript-resolvers": "^1.17.8",
+      "graphql-tools": "^6.0.18",
+    },
   },
 };
