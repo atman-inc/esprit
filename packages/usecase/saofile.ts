@@ -12,10 +12,10 @@ const generator: GeneratorConfig = {
     }
 
     const classUsecaseName = classify(usecaseName);
-    const usecasePath = ["lib/application/usecases"]
+    const usecasePath = ["application/usecases"]
       .concat(usecaseNameArray)
       .join("/");
-    const interactorPath = ["lib/application/interactor"]
+    const interactorPath = ["application/interactor"]
       .concat(usecaseNameArray)
       .join("/");
 
@@ -27,13 +27,15 @@ const generator: GeneratorConfig = {
           usecaseName,
           classUsecaseName,
           usecasePath,
+          interactorPath,
         },
       },
       {
         type: "move",
         patterns: {
-          "usecase.ts.template": `${usecasePath}/${usecaseName}Usecase.ts`,
-          "interactor.ts.template": `${interactorPath}/${usecaseName}Interactor.ts`,
+          "usecase.ts.template": `lib/${usecasePath}/${usecaseName}Usecase.ts`,
+          "interactor.ts.template": `lib/${interactorPath}/${usecaseName}Interactor.ts`,
+          "interactor.spec.ts.template": `spec/${interactorPath}/${usecaseName}Interactor.spec.ts`,
         },
       },
     ];
