@@ -35,6 +35,7 @@ const generator: GeneratorConfig = {
             host: "DB_HOST",
             user: "DB_USER",
             password: "DB_PASSWORD",
+            type: "postgres",
           };
 
           const yamlData = yaml.load(data) || {};
