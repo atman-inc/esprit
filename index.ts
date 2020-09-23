@@ -19,4 +19,11 @@ program.command("usecase <usecaseName>").action((usecaseName) => {
   }).run();
 });
 
+program.command("add orm").action(() => {
+  new SAO({
+    generator: `${__dirname}/packages/orm`,
+    outDir: `./`,
+  }).run();
+});
+
 program.parse(process.argv);
