@@ -12,3 +12,4 @@ services:
     command: npm run dev
 volumes:
   modules_data:
+    driver: local
