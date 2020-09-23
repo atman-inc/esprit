@@ -1,5 +1,5 @@
 import { injectable } from "tsyringe";
-import { <%= classUsecaseName %>Usecase } from "../usecases/<%= usecaseName %>Usecase";
+import { <%= classUsecaseName %>Usecase } from "<%= usecasePath %>/<%= usecaseName %>Usecase";
 
 @injectable()
 export class <%= classUsecaseName %>Interactor implements <%= classUsecaseName %>Usecase {

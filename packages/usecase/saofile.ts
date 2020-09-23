@@ -4,9 +4,20 @@ import { classify } from "underscore.string";
 const generator: GeneratorConfig = {
   actions() {
     const answers: any = this.opts.answers;
-    const usecaseName: string = answers.usecaseName;
-    const classUsecaseName: string = classify(usecaseName);
-    console.log(classUsecaseName);
+    const usecaseNameArray: string[] = answers.usecaseName.split("/");
+    const usecaseName = usecaseNameArray.pop();
+
+    if (!usecaseName) {
+      throw new Error("Required usecase name");
+    }
+
+    const classUsecaseName = classify(usecaseName);
+    const usecasePath = ["lib/application/usecases"]
+      .concat(usecaseNameArray)
+      .join("/");
+    const interactorPath = ["lib/application/interactor"]
+      .concat(usecaseNameArray)
+      .join("/");
 
     return [
       {
@@ -15,13 +26,14 @@ const generator: GeneratorConfig = {
         data: {
           usecaseName,
           classUsecaseName,
+          usecasePath,
         },
       },
       {
         type: "move",
         patterns: {
-          "usecase.ts.template": `lib/application/usecases/${usecaseName}Usecase.ts`,
-          "interactor.ts.template": `lib/application/interactors/${usecaseName}Interactor.ts`,
+          "usecase.ts.template": `${usecasePath}/${usecaseName}Usecase.ts`,
+          "interactor.ts.template": `${interactorPath}/${usecaseName}Interactor.ts`,
         },
       },
     ];
