@@ -1,4 +1,4 @@
-import { createServer } from "./lib/infrastructure/webserver/server";
+import { createServer } from "lib/infrastructure/webserver/server";
 
 const main = async () => {
   const server = await createServer();

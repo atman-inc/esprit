@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev index.ts",
+    "dev": "NODE_PATH=./ ts-node-dev index.ts",
     "test": "jest --runInBand --detectOpenHandles"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
-import grpc from 'grpc'
-import { createServer } from "./lib/infrastructure/grpcserver/server";
+import grpc from "grpc";
+import { createServer } from "lib/infrastructure/grpcserver/server";
 
 const main = async () => {
   const server = await createServer();
