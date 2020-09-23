@@ -19,10 +19,12 @@
   "dependencies": {
     "commander": "^6.1.0",
     "sao": "^2.0.0-beta.1",
+    "underscore.string": "^3.3.5",
     "validate-npm-package-name": "^3.0.0"
   },
   "devDependencies": {
     "@types/inquirer": "^7.3.1",
+    "@types/underscore.string": "0.0.38",
     "@types/validate-npm-package-name": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^4.1.0",
     "@typescript-eslint/parser": "^4.1.0",

@@ -4,6 +4,6 @@ import { <%= classUsecaseName %>Usecase } from "../usecases/<%= usecaseName %>Us
 @injectable()
 export class <%= classUsecaseName %>Interactor implements <%= classUsecaseName %>Usecase {
   async handle(): Promise<void> {
-      return;
+    return;
   }
 }

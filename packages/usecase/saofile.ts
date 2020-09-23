@@ -1,10 +1,12 @@
 import { GeneratorConfig } from "sao";
+import { classify } from "underscore.string";
 
 const generator: GeneratorConfig = {
   actions() {
     const answers: any = this.opts.answers;
     const usecaseName: string = answers.usecaseName;
-    const classUsecaseName: string = usecaseName;
+    const classUsecaseName: string = classify(usecaseName);
+    console.log(classUsecaseName);
 
     return [
       {
