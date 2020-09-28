@@ -1,0 +1,30 @@
+{
+  "name": "<%= name %>",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_PATH=./ ts-node-dev index.ts",
+    "test": "jest --runInBand --detectOpenHandles"
+  },
+  "devDependencies": {
+    "@types/config": "0.0.36",
+    "@types/jest": "^26.0.10",
+    "@types/node": "^14.6.0",
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/parser": "^3.10.1",
+    "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-jest": "^23.20.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.4.2",
+    "prettier": "^2.1.0",
+    "ts-jest": "^26.2.0",
+    "ts-node-dev": "^1.0.0-pre.60",
+    "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "config": "^3.3.1",
+    "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.3.0"
+  }
+}

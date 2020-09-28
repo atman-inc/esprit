@@ -1,0 +1,38 @@
+{
+  "name": "esprit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atman-inc/esprit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/atman-inc/esprit/issues"
+  },
+  "homepage": "https://github.com/atman-inc/esprit#readme",
+  "dependencies": {
+    "commander": "^6.1.0",
+    "sao": "^2.0.0-beta.1",
+    "underscore.string": "^3.3.5",
+    "validate-npm-package-name": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^7.3.1",
+    "@types/underscore.string": "0.0.38",
+    "@types/validate-npm-package-name": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.1.0",
+    "@typescript-eslint/parser": "^4.1.0",
+    "eslint": "^7.8.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.1",
+    "ts-node-dev": "^1.0.0-pre.62",
+    "typescript": "^4.0.2"
+  }
+}
