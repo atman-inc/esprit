@@ -13,7 +13,7 @@ const generator: GeneratorConfig = {
         name: "mode",
         message: "Database:",
         choices: [
-          { name: "postgresql", value: "postgres" },
+          { name: "postgres", value: "postgres" },
           { name: "mysql", value: "mysql" },
         ],
       },
@@ -39,7 +39,7 @@ const generator: GeneratorConfig = {
             host: "DB_HOST",
             user: "DB_USER",
             password: "DB_PASSWORD",
-            type: "postgres",
+            type: this.answers.mode,
           };
 
           const yamlData = yaml.load(data) || {};
@@ -56,6 +56,7 @@ const generator: GeneratorConfig = {
           data["dependencies"]["pg"] = "^8.3.3";
           data["dependencies"]["typeorm"] = "^0.2.26";
           data["dependencies"]["typeorm-seeding"] = "^1.6.1";
+
           data["scripts"]["typeorm"] =
             "node --require ts-node/register ./node_modules/typeorm/cli.js";
 
