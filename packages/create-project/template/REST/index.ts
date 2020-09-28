@@ -1,4 +1,6 @@
-import { createServer } from "./lib/infrastructure/webserver/server";
+import { createServer } from "lib/infrastructure/webserver/server";
+import "reflect-metadata";
+import "lib/infrastructure/di";
 
 const main = async () => {
   const server = await createServer();

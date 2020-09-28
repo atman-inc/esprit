@@ -1,5 +1,7 @@
-import grpc from 'grpc'
-import { createServer } from "./lib/infrastructure/grpcserver/server";
+import grpc from "grpc";
+import { createServer } from "lib/infrastructure/grpcserver/server";
+import "reflect-metadata";
+import "lib/infrastructure/di";
 
 const main = async () => {
   const server = await createServer();

@@ -1,6 +1,6 @@
 import fastify, { FastifyInstance } from "fastify";
 import openapiGlue from "fastify-openapi-glue";
-import esprit from '../../../esprit.config'
+import esprit from "esprit.config";
 
 export const createServer = async (): Promise<FastifyInstance> => {
   const server = fastify({
