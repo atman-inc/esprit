@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   name: "<%= name %>",
   mode: "<%= mode %>",
 <% if (mode == 'REST') { %>

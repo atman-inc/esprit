@@ -1,6 +1,9 @@
 import { GeneratorConfig } from "sao";
 import yaml from "js-yaml";
-import path from "path";
+
+interface Config {
+  name: string;
+}
 
 const generator: GeneratorConfig = {
   prompts() {
@@ -17,8 +20,9 @@ const generator: GeneratorConfig = {
     ];
   },
   async actions() {
-    // TODO: Project名をどこから取るか
-    const projectName = path.basename(__dirname);
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const config: Config = require(`${process.cwd()}/esprit.config.js`);
+    const projectName = config.name;
 
     return [
       {
