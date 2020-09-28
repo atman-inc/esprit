@@ -69,6 +69,25 @@ const generator: GeneratorConfig = {
           return data;
         },
       },
+      {
+        type: "modify",
+        files: "esprit.config.js",
+        handler: (data) => {
+          const contentLines: string[] = data.split("\n");
+          const ormIndex = contentLines.indexOf(
+            contentLines.filter((l) => {
+              return l.match(/orm/);
+            })[0]
+          );
+
+          if (ormIndex >= 0) {
+            contentLines.splice(ormIndex, 1);
+            contentLines.splice(ormIndex, 0, "  orm: true");
+          }
+
+          return contentLines.join("\n");
+        },
+      },
     ];
   },
   completed() {

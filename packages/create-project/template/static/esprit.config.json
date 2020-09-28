@@ -1,0 +1,10 @@
+{
+  "name": "<%= name %>",
+  "mode": "<%= mode %>",
+<% if (mode == 'REST') { %>
+  "openAPI": {
+    "jsonFilePath": "lib/infrastructure/webserver/swagger.bundle.json",
+    "service": "lib/infrastructure/webserver/service"
+  }
+<% } %>
+}
