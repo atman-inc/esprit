@@ -50,39 +50,6 @@ const generator: GeneratorConfig = {
       },
       {
         type: "modify",
-        files: "docker-compose.yml",
-        handler: (data) => {
-          const yamlData = yaml.load(data) || {};
-
-          const services = yamlData["services"] || {};
-          const appDependsOn = services["app"]["depends_on"] || [];
-
-          appDependsOn.push("db");
-          services["app"]["depends_on"] = appDependsOn;
-
-          services["db"] = {
-            image: "postgres:11-alpine",
-            restart: "always",
-            environment: {
-              POSTGRES_DB: `${projectName}_development`,
-              POSTGRES_USER: "postgres",
-              POSTGRES_PASSWORD: "password",
-            },
-            ports: ["5432:5432"],
-            volumes: ["db_data:/var/lib/postgresql/data"],
-          };
-
-          const volumes = yamlData["volumes"] || {};
-          volumes["db_data"] = { driver: "local" };
-
-          yamlData["services"] = services;
-          yamlData["volumes"] = volumes;
-
-          return yaml.dump(yamlData);
-        },
-      },
-      {
-        type: "modify",
         files: "package.json",
         handler: (data) => {
           // TODO: Databaseごとに変更する
