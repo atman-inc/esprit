@@ -5,7 +5,7 @@ export const generateCommand = createCommand().name("generate");
 
 generateCommand.command("usecase <name>").action((name: string) => {
   new SAO({
-    generator: `${__dirname}/../packages/usecase`,
+    generator: `${__dirname}/../packages/generate/usecase`,
     outDir: `./`,
     answers: {
       name,
