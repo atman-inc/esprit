@@ -4,7 +4,7 @@ import { classify } from "underscore.string";
 const generator: GeneratorConfig = {
   actions() {
     const answers: any = this.opts.answers;
-    const usecaseNameArray: string[] = answers.usecaseName.split("/");
+    const usecaseNameArray: string[] = answers.name.split("/");
     const usecaseName = usecaseNameArray.pop();
 
     if (!usecaseName) {
