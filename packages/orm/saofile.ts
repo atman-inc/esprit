@@ -20,7 +20,7 @@ const generator: GeneratorConfig = {
   },
   async actions() {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const config = require(`${process.cwd()}/esprit.config`);
+    const config = require(`${process.cwd()}/esprit.config.json`);
     const projectName = config.name;
 
     const databaseType: DatabaseType = this.answers.database;
