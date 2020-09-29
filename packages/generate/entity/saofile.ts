@@ -1,5 +1,6 @@
 import { GeneratorConfig } from "sao";
 import { GenerateFile } from "../../../utils/GenerateFile";
+import { config } from "../../../utils/config";
 
 const generator: GeneratorConfig = {
   actions() {
@@ -11,24 +12,49 @@ const generator: GeneratorConfig = {
       "spec/domain/entities",
       ".spec"
     );
+    const ormFile = new GenerateFile(
+      answers.name,
+      "lib/infrastructure/orm/entities"
+    );
+    const ormSpecFile = new GenerateFile(
+      answers.name,
+      "spec/infrastructure/orm/entities",
+      ".spec"
+    );
 
-    return [
+    const actions: any = [
       {
         type: "add",
-        files: "**",
+        files: ["domain.ts.template", "spec.ts.template"],
         data: {
           className: domainFile.className,
           domainImport: domainFile.importString,
         },
       },
-      {
-        type: "move",
-        patterns: {
-          "domain.ts.template": domainFile.filePath,
-          "spec.ts.template": specFile.filePath,
-        },
-      },
     ];
+
+    if (config.orm) {
+      actions.push({
+        type: "add",
+        files: ["orm.ts.template", "orm.spec.ts.template"],
+        data: {
+          className: ormFile.className,
+          ormImport: ormFile.importString,
+        },
+      });
+    }
+
+    actions.push({
+      type: "move",
+      patterns: {
+        "domain.ts.template": domainFile.filePath,
+        "spec.ts.template": specFile.filePath,
+        "orm.ts.template": ormFile.filePath,
+        "orm.spec.ts.template": ormSpecFile.filePath,
+      },
+    });
+
+    return actions;
   },
 };
 
