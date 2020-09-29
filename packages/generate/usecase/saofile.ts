@@ -1,9 +1,9 @@
 import { GeneratorConfig } from "sao";
-import { classify } from "underscore.string";
+import { GenerateFile } from "../../../utils/GenerateFile";
 
 const generator: GeneratorConfig = {
   actions() {
-    const answers: any = this.opts.answers;
+    const answers = this.opts.answers as { name: string };
     const usecaseNameArray: string[] = answers.name.split("/");
     const usecaseName = usecaseNameArray.pop();
 
@@ -11,39 +11,47 @@ const generator: GeneratorConfig = {
       throw new Error("Required usecase name");
     }
 
-    const classUsecaseName = classify(usecaseName);
-    const usecasePath = ["application/usecases"]
-      .concat(usecaseNameArray)
-      .join("/");
-    const interactorPath = ["application/interactor"]
-      .concat(usecaseNameArray)
-      .join("/");
+    const usecaseFile = new GenerateFile(
+      answers.name,
+      "lib/application/usecases",
+      "Usecase"
+    );
+    const interactorFile = new GenerateFile(
+      answers.name,
+      "lib/application/interactors",
+      "Interactor"
+    );
+    const specFile = new GenerateFile(
+      answers.name,
+      "spec/application/interactors",
+      "Interactor.spec"
+    );
 
     return [
       {
         type: "add",
         files: "**",
         data: {
-          usecaseName,
-          classUsecaseName,
-          usecasePath,
-          interactorPath,
+          usecaseClassName: usecaseFile.className,
+          usecaseImport: usecaseFile.importString,
+          interactorClassName: interactorFile.className,
+          interactorImport: interactorFile.importString,
         },
       },
       {
         type: "move",
         patterns: {
-          "usecase.ts.template": `lib/${usecasePath}/${usecaseName}Usecase.ts`,
-          "interactor.ts.template": `lib/${interactorPath}/${usecaseName}Interactor.ts`,
-          "interactor.spec.ts.template": `spec/${interactorPath}/${usecaseName}Interactor.spec.ts`,
+          "usecase.ts.template": usecaseFile.filePath,
+          "interactor.ts.template": interactorFile.filePath,
+          "interactor.spec.ts.template": specFile.filePath,
         },
       },
       {
         type: "modify",
         files: "lib/infrastructure/di.ts",
         handler: (data) => {
-          const toInsertImport = `import { ${classUsecaseName}Interactor } from "lib/${interactorPath}/${usecaseName}Interactor"`;
-          const toInsertRegister = `  container.register("${classUsecaseName}Usecase", { useClass: ${classUsecaseName}Interactor });`;
+          const toInsertImport = interactorFile.importString;
+          const toInsertRegister = `  container.register("${usecaseFile.className}", { useClass: ${interactorFile.className} });`;
           const contentLines: string[] = data.split("\n");
           const finalImportIndex = findImportsEndpoint(contentLines);
           const finalRegisterIndex = findRegisterEndpoint(contentLines);

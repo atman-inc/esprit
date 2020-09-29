@@ -1,4 +1,4 @@
-import { <%= classUsecaseName %>Interactor } from "lib/<%= interactorPath %>/<%= usecaseName %>Interactor";
+<%- interactorImport %>
 
 describe("#handle", () => {
   xit("add some test", () => {
