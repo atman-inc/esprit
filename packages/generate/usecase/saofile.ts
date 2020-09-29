@@ -4,12 +4,6 @@ import { GenerateFile } from "../../../utils/GenerateFile";
 const generator: GeneratorConfig = {
   actions() {
     const answers = this.opts.answers as { name: string };
-    const usecaseNameArray: string[] = answers.name.split("/");
-    const usecaseName = usecaseNameArray.pop();
-
-    if (!usecaseName) {
-      throw new Error("Required usecase name");
-    }
 
     const usecaseFile = new GenerateFile(
       answers.name,
