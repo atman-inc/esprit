@@ -86,7 +86,7 @@ const generator: GeneratorConfig = {
         contentLines.splice(
           finalRegisterIndex + 1,
           0,
-          ` . container.register("${domainFile.className}", { useValue: getCustomRepository(${domainFile.className}) });`
+          `  container.register("${domainFile.className}", { useValue: getCustomRepository(${domainFile.className}) });`
         );
 
         return contentLines.join("\n");
