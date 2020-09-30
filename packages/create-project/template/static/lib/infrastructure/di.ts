@@ -1,7 +1,5 @@
 import { container } from "tsyringe";
 
-const register = async () => {
+export function registerDI(): void {
   return;
-};
-
-register();
+}
