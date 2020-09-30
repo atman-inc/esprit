@@ -62,18 +62,11 @@ const generator: GeneratorConfig = {
           }
 
           function findRegisterEndpoint(contentLines: string[]): number {
-            const reversedContent = Array.from(contentLines).reverse();
-            const reverseRegister = reversedContent.filter((line) =>
-              line.match(/(container.register|register = )/)
-            );
-            if (reverseRegister.length <= 0) {
-              return 0;
-            }
-            return contentLines.indexOf(reverseRegister[0]);
+            return contentLines.indexOf("}");
           }
 
           contentLines.splice(finalImportIndex + 1, 0, toInsertImport);
-          contentLines.splice(finalRegisterIndex + 2, 0, toInsertRegister);
+          contentLines.splice(finalRegisterIndex + 1, 0, toInsertRegister);
 
           return contentLines.join("\n");
         },
