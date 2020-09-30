@@ -1,8 +1,13 @@
-import { Repository } from "typeorm";
+import { EntityRepository, EntityManager } from "typeorm";
 import { <%= entityClassName %> } from "<%= ormEntityImportPath %>";
 import { <%= entityClassName %> as Domain<%= entityClassName %> } from "<%= domainEntityImportPath %>";
 import { <%= className %> as I<%= className %> } from "<%= domainImportPath %>";
 
-export class <%= className %> implements I<%= className %> {
-  constructor(private db: Repository<<%= entityClassName %>>) {}
+@EntityRepository()
+export class <%= className %> implements I<%= className %>  {
+  constructor(private manager: EntityManager) {}
+
+  private domainEntity(entity: <%= entityClassName %>): Domain<%= entityClassName %> {
+    return new Domain<%= entityClassName %>();
+  }
 }
