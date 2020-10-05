@@ -1,5 +1,6 @@
 import { createCommand } from "commander";
 import { SAO } from "sao";
+import { migrationCommand } from "./commands/migration";
 
 const program = createCommand();
 program.command("create-project <projectName>").action((projectName) => {
@@ -26,4 +27,5 @@ program.command("add orm").action(() => {
   }).run();
 });
 
+program.addCommand(migrationCommand);
 program.parse(process.argv);
