@@ -1,5 +1,7 @@
 import { createCommand } from "commander";
 import { SAO } from "sao";
+import { config } from "../utils/config";
+import { execSync } from "child_process";
 
 export const createGenerateCommand = () => {
   const generateCommand = createCommand().name("generate");
@@ -43,6 +45,14 @@ export const createGenerateCommand = () => {
       },
     }).run();
   });
+
+  if (config.mode == "REST") {
+    generateCommand.command("openapi-dts").action(() => {
+      execSync(
+        `dtsgen --out ./@types/openapi.d.ts ${config.openAPI.jsonFilePath}`
+      );
+    });
+  }
 
   return generateCommand;
 };

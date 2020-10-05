@@ -10,7 +10,9 @@ export const packages: {
       fastify: "3.1.0",
       "fastify-openapi-glue": "^2.2.0",
     },
-    devDependencies: {},
+    devDependencies: {
+      dtsgenerator: "^3.3.1",
+    },
   },
   gRPC: {
     dependencies: {
