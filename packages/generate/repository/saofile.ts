@@ -1,6 +1,7 @@
 import { GeneratorConfig } from "sao";
+import { insert } from "underscore.string";
 import { GenerateFile } from "../../../utils/GenerateFile";
-import { config } from "../../../utils/config";
+import { InsertFileManager } from "../../../utils/InsertFileManager";
 
 const generator: GeneratorConfig = {
   actions() {
@@ -66,30 +67,15 @@ const generator: GeneratorConfig = {
       type: "modify",
       files: "lib/infrastructure/di.ts",
       handler: (data: string) => {
-        const toInsertImport = ormFile.importString;
-        const contentLines: string[] = data.split("\n");
-        const finalImportIndex = findImportsEndpoint(contentLines);
-        const finalRegisterIndex = contentLines.indexOf("}");
-
-        function findImportsEndpoint(contentLines: string[]): number {
-          const reversedContent = Array.from(contentLines).reverse();
-          const reverseImports = reversedContent.filter((line) =>
-            line.match(/\} from ('|")/)
+        const insertFileManager = new InsertFileManager(data);
+        insertFileManager
+          .afterInsert(/\} from ('|")/, ormFile.importString)
+          .beforeInsert(
+            /^}$/,
+            `  container.register("${domainFile.className}", { useValue: getCustomRepository(${domainFile.className}) });`
           );
-          if (reverseImports.length <= 0) {
-            return 0;
-          }
-          return contentLines.indexOf(reverseImports[0]);
-        }
 
-        contentLines.splice(finalImportIndex + 1, 0, toInsertImport);
-        contentLines.splice(
-          finalRegisterIndex + 1,
-          0,
-          `  container.register("${domainFile.className}", { useValue: getCustomRepository(${domainFile.className}) });`
-        );
-
-        return contentLines.join("\n");
+        return insertFileManager.insertedContent;
       },
     });
 
