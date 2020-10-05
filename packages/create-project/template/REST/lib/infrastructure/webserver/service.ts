@@ -1,3 +1,5 @@
+import { FastifyRequest } from "fastify";
+
 class Service {
   async welcom() {
     return {
