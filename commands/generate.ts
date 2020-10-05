@@ -34,5 +34,15 @@ export const createGenerateCommand = () => {
     }).run();
   });
 
+  generateCommand.command("controller <name>").action((name: string) => {
+    new SAO({
+      generator: `${__dirname}/../packages/generate/controller`,
+      outDir: `./`,
+      answers: {
+        name,
+      },
+    }).run();
+  });
+
   return generateCommand;
 };
