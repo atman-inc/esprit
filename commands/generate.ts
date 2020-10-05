@@ -24,5 +24,15 @@ export const createGenerateCommand = () => {
     }).run();
   });
 
+  generateCommand.command("repository <name>").action((name: string) => {
+    new SAO({
+      generator: `${__dirname}/../packages/generate/repository`,
+      outDir: `./`,
+      answers: {
+        name,
+      },
+    }).run();
+  });
+
   return generateCommand;
 };

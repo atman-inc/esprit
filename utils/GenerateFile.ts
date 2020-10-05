@@ -31,6 +31,6 @@ export class GenerateFile {
   }
 
   public get importString(): string {
-    return `import { ${this.className} } from "${this.importPath}"`;
+    return `import { ${this.className} } from "${this.importPath}";`;
   }
 }

@@ -1,6 +1,7 @@
 import { GeneratorConfig } from "sao";
 import yaml from "js-yaml";
 import { databases } from "./databases";
+import { config } from "../../utils/config";
 
 type DatabaseType = "mysql" | "postgres";
 
@@ -19,10 +20,7 @@ const generator: GeneratorConfig = {
     ];
   },
   async actions() {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const config = require(`${process.cwd()}/esprit.config.json`);
     const projectName = config.name;
-
     const databaseType: DatabaseType = this.answers.database;
     const database = databases[databaseType];
 
@@ -78,6 +76,30 @@ const generator: GeneratorConfig = {
           };
 
           return data;
+        },
+      },
+      {
+        type: "modify",
+        files: "lib/infrastructure/di.ts",
+        handler: (data: string) => {
+          const toInsertImport =
+            'import { getCustomRepository } from "typeorm";';
+          const contentLines: string[] = data.split("\n");
+          const finalImportIndex = findImportsEndpoint(contentLines);
+          function findImportsEndpoint(contentLines: string[]): number {
+            const reversedContent = Array.from(contentLines).reverse();
+            const reverseImports = reversedContent.filter((line) =>
+              line.match(/\} from ('|")/)
+            );
+            if (reverseImports.length <= 0) {
+              return 0;
+            }
+            return contentLines.indexOf(reverseImports[0]);
+          }
+
+          contentLines.splice(finalImportIndex + 1, 0, toInsertImport);
+
+          return contentLines.join("\n");
         },
       },
     ];
