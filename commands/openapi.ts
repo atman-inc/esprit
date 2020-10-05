@@ -1,7 +1,7 @@
 import { createCommand } from "commander";
 import { config } from "../utils/config";
 import { execSync } from "child_process";
-import { Project } from "ts-morph";
+import { IndentationText, Project } from "ts-morph";
 import path from "path";
 import fs from "fs";
 import { classify } from "underscore.string";
@@ -20,6 +20,9 @@ export const createOpenapiCommand = () => {
     const currentDir = process.cwd();
     const project = new Project({
       tsConfigFilePath: path.join(currentDir, "tsconfig.json"),
+      manipulationSettings: {
+        indentationText: IndentationText.TwoSpaces,
+      },
     });
     const serviceFile = project.getSourceFileOrThrow(
       path.join(currentDir, `${config.openAPI.service}.ts`)
