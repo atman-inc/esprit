@@ -22,17 +22,6 @@ const generator: GeneratorConfig = {
       "spec/infrastructure/orm/repositories",
       "Repository.spec"
     );
-
-    const actions: any = [
-      {
-        type: "add",
-        files: ["domain.ts.template"],
-        data: {
-          className: domainFile.className,
-        },
-      },
-    ];
-
     const domainEntityFile = new GenerateFile(
       answers.name,
       "lib/domain/entities"
@@ -41,18 +30,21 @@ const generator: GeneratorConfig = {
       answers.name,
       "lib/infrastructure/orm/entities"
     );
-    actions.push({
-      type: "add",
-      files: ["orm.ts.template", "orm.spec.ts.template"],
-      data: {
-        className: ormFile.className,
-        ormImport: ormFile.importString,
-        domainImportPath: domainFile.importPath,
-        entityClassName: ormEntityFile.className,
-        ormEntityImportPath: ormEntityFile.importPath,
-        domainEntityImportPath: domainEntityFile.importPath,
+
+    const actions: any = [
+      {
+        type: "add",
+        files: "**",
+        data: {
+          className: domainFile.className,
+          ormImport: ormFile.importString,
+          domainImportPath: domainFile.importPath,
+          entityClassName: ormEntityFile.className,
+          ormEntityImportPath: ormEntityFile.importPath,
+          domainEntityImportPath: domainEntityFile.importPath,
+        },
       },
-    });
+    ];
 
     actions.push({
       type: "move",

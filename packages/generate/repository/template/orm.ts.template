@@ -4,7 +4,7 @@ import { <%= entityClassName %> as Domain<%= entityClassName %> } from "<%= doma
 import { <%= className %> as I<%= className %> } from "<%= domainImportPath %>";
 
 @EntityRepository()
-export class <%= className %> implements I<%= className %>  {
+export class <%= className %> implements I<%= className %> {
   constructor(private manager: EntityManager) {}
 
   private domainEntity(entity: <%= entityClassName %>): Domain<%= entityClassName %> {
