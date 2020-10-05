@@ -1,30 +1,32 @@
 import { createCommand } from "commander";
 import { execSync } from "child_process";
+import { config } from "../utils/config";
 
-const program = createCommand().name("migration");
+export const createMigrationCommand = () => {
+  const migrationCommand = createCommand().name("migration");
+  const ormConfigFilePath = config.orm.configFilePath;
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const config = require(`${process.cwd()}/esprit.config.json`);
-const ormConfigFilePath = config.orm.configFilePath;
+  migrationCommand.command("run").action(() => {
+    execSync(`npm run typeorm -- migration:run --config ${ormConfigFilePath}`);
+  });
 
-program.command("run").action(() => {
-  execSync(`npm run typeorm -- migration:run --config ${ormConfigFilePath}`);
-});
+  migrationCommand.command("generate <name>").action((name: string) => {
+    execSync(
+      `npm run typeorm -- migration:generate --config ${ormConfigFilePath} --name ${name}`
+    );
+  });
 
-program.command("generate <name>").action((name: string) => {
-  execSync(
-    `npm run typeorm -- migration:generate --config ${ormConfigFilePath} --name ${name}`
-  );
-});
+  migrationCommand.command("create <name>").action((name: string) => {
+    execSync(
+      `npm run typeorm -- migration:create --config ${ormConfigFilePath} --name ${name}`
+    );
+  });
 
-program.command("create <name>").action((name: string) => {
-  execSync(
-    `npm run typeorm -- migration:create --config ${ormConfigFilePath} --name ${name}`
-  );
-});
+  migrationCommand.command("revert").action(() => {
+    execSync(
+      `npm run typeorm -- migration:revert --config ${ormConfigFilePath}`
+    );
+  });
 
-program.command("revert").action(() => {
-  execSync(`npm run typeorm -- migration:revert --config ${ormConfigFilePath}`);
-});
-
-export const migrationCommand = program;
+  return migrationCommand;
+};

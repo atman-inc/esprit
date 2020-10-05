@@ -1,0 +1,7 @@
+<%- interactorImport %>
+
+describe("#handle", () => {
+  xit("add some test", () => {
+    return;
+  });
+});

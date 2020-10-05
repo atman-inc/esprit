@@ -1,3 +1,0 @@
-export interface <%= classUsecaseName %>Usecase {
-  handle(): Promise<void>;
-}

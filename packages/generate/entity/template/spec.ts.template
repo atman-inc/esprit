@@ -1,0 +1,7 @@
+<%- domainImport %>
+
+describe("#handle", () => {
+  xit("add some test", () => {
+    return;
+  });
+});

@@ -1,22 +1,14 @@
 import { createCommand } from "commander";
 import { SAO } from "sao";
-import { migrationCommand } from "./commands/migration";
+import { createGenerateCommand } from "./commands/generate";
+import { createMigrationCommand } from "./commands/migration";
+import { config } from "./utils/config";
 
 const program = createCommand();
 program.command("create-project <projectName>").action((projectName) => {
   new SAO({
     generator: `${__dirname}/packages/create-project`,
     outDir: `${projectName}`,
-  }).run();
-});
-
-program.command("usecase <usecaseName>").action((usecaseName) => {
-  new SAO({
-    generator: `${__dirname}/packages/usecase`,
-    outDir: `./`,
-    answers: {
-      usecaseName,
-    },
   }).run();
 });
 
@@ -27,5 +19,8 @@ program.command("add orm").action(() => {
   }).run();
 });
 
-program.addCommand(migrationCommand);
+program.addCommand(createGenerateCommand());
+if (config.orm) {
+  program.addCommand(createMigrationCommand());
+}
 program.parse(process.argv);
