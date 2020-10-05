@@ -1,5 +1,6 @@
 import { GeneratorConfig } from "sao";
 import { GenerateFile } from "../../../utils/GenerateFile";
+import { InsertFileManager } from "../../../utils/InsertFileManager";
 
 const generator: GeneratorConfig = {
   actions() {
@@ -44,31 +45,15 @@ const generator: GeneratorConfig = {
         type: "modify",
         files: "lib/infrastructure/di.ts",
         handler: (data) => {
-          const toInsertImport = interactorFile.importString;
-          const toInsertRegister = `  container.register("${usecaseFile.className}", { useClass: ${interactorFile.className} });`;
-          const contentLines: string[] = data.split("\n");
-          const finalImportIndex = findImportsEndpoint(contentLines);
-          const finalRegisterIndex = findRegisterEndpoint(contentLines);
-
-          function findImportsEndpoint(contentLines: string[]): number {
-            const reversedContent = Array.from(contentLines).reverse();
-            const reverseImports = reversedContent.filter((line) =>
-              line.match(/\} from ('|")/)
+          const insertFileManager = new InsertFileManager(data);
+          insertFileManager
+            .afterInsert(/\} from ('|")/, interactorFile.importString)
+            .beforeInsert(
+              /^}$/,
+              `  container.register("${usecaseFile.className}", { useClass: ${interactorFile.className} });`
             );
-            if (reverseImports.length <= 0) {
-              return 0;
-            }
-            return contentLines.indexOf(reverseImports[0]);
-          }
 
-          function findRegisterEndpoint(contentLines: string[]): number {
-            return contentLines.indexOf("}");
-          }
-
-          contentLines.splice(finalImportIndex + 1, 0, toInsertImport);
-          contentLines.splice(finalRegisterIndex + 1, 0, toInsertRegister);
-
-          return contentLines.join("\n");
+          return insertFileManager.insertedContent;
         },
       },
     ];
