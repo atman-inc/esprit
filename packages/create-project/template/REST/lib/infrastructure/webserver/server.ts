@@ -1,6 +1,6 @@
 import fastify, { FastifyInstance } from "fastify";
 import openapiGlue from "fastify-openapi-glue";
-import esprit from "esprit.config";
+import config from "esprit.config.json";
 
 export const createServer = async (): Promise<FastifyInstance> => {
   const server = fastify({
@@ -8,8 +8,8 @@ export const createServer = async (): Promise<FastifyInstance> => {
   });
 
   server.register(openapiGlue, {
-    specification: esprit.openAPI.jsonFilePath,
-    service: esprit.openAPI.service,
+    specification: config.openAPI.jsonFilePath,
+    service: config.openAPI.service,
   });
 
   return server;

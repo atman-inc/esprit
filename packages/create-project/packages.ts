@@ -1,12 +1,9 @@
-interface Package {
-  dependencies: { [key: string]: string };
-  devDependencies: { [key: string]: string };
-}
+import { DependencyPackage } from "../../utils/dependency_package";
 
 export const packages: {
-  REST: Package;
-  gRPC: Package;
-  GraphQL: Package;
+  REST: DependencyPackage;
+  gRPC: DependencyPackage;
+  GraphQL: DependencyPackage;
 } = {
   REST: {
     dependencies: {
