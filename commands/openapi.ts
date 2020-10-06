@@ -88,7 +88,8 @@ function requestGenericParameter(
   }
 
   if (
-    endpoint.parameters?.some((p) => {
+    endpoint.parameters &&
+    endpoint.parameters.some((p) => {
       return p.in === "path";
     })
   ) {
@@ -96,7 +97,8 @@ function requestGenericParameter(
   }
 
   if (
-    endpoint.parameters?.some((p) => {
+    endpoint.parameters &&
+    endpoint.parameters.some((p) => {
       return p.in === "query";
     })
   ) {
