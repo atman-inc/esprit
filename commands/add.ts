@@ -6,7 +6,7 @@ export function createAddCommand(): Commander.Command {
 
   addCommand.command("orm").action(() => {
     new SAO({
-      generator: `${__dirname}/packages/orm`,
+      generator: `${__dirname}/../packages/add/orm`,
       outDir: `./`,
     }).run();
   });

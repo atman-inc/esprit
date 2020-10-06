@@ -1,7 +1,7 @@
 import { GeneratorConfig } from "sao";
 import yaml from "js-yaml";
 import { databases } from "./databases";
-import { config } from "../../utils/config";
+import { config } from "../../../utils/config";
 
 type DatabaseType = "mysql" | "postgres";
 

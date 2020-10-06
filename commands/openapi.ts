@@ -1,4 +1,4 @@
-import { createCommand } from "commander";
+import Commander, { createCommand } from "commander";
 import { config } from "../utils/config";
 import { execSync } from "child_process";
 import { IndentationText, Project } from "ts-morph";
@@ -6,7 +6,7 @@ import path from "path";
 import fs from "fs";
 import { classify } from "underscore.string";
 
-export const createOpenapiCommand = () => {
+export function createOpenapiCommand(): Commander.Command {
   const openapiCommand = createCommand().name("openapi");
 
   openapiCommand.command("update").action(async () => {
@@ -71,7 +71,7 @@ export const createOpenapiCommand = () => {
   });
 
   return openapiCommand;
-};
+}
 
 function requestGenericParameter(
   operationId: string,
