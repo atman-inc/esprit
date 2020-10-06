@@ -21,6 +21,15 @@ const generator: GeneratorConfig = {
           { name: "GraphQL", value: "graphql" },
         ],
       },
+      {
+        type: "select",
+        name: "nodeVersion",
+        message: "Node version:",
+        choices: [
+          { name: "10", value: "10" },
+          { name: "12", value: "12" },
+        ],
+      },
     ];
   },
   actions() {
