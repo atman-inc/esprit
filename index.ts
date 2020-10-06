@@ -6,10 +6,11 @@ import { createOpenapiCommand } from "./commands/openapi";
 import { config } from "./utils/config";
 
 const program = createCommand();
-program.command("create-project <projectName>").action((projectName) => {
+
+program.command("new <name>").action((name) => {
   new SAO({
-    generator: `${__dirname}/packages/create-project`,
-    outDir: `${projectName}`,
+    generator: `${__dirname}/packages/new`,
+    outDir: name,
   }).run();
 });
 
@@ -21,6 +22,7 @@ program.command("add orm").action(() => {
 });
 
 program.addCommand(createGenerateCommand());
+
 if (config.orm) {
   program.addCommand(createMigrationCommand());
 }
