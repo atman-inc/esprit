@@ -4,3 +4,4 @@ node_modules
 dist
 *.js
 !packages/create-project/template/static/esprit.config.js
+!packages/create-project/template/static/.eslintrc.js
