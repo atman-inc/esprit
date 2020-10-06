@@ -11,7 +11,7 @@ const program = createCommand();
 
 program.command("new <name>").action((name) => {
   new SAO({
-    generator: `${__dirname}/packages/new`,
+    generator: `${__dirname}/../packages/new`,
     outDir: name,
   }).run();
 });
