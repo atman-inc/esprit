@@ -6,7 +6,7 @@ export enum ORM {
 }
 
 interface Database {
-  port: number;
+  port?: number;
   orm: ORM;
   scripts: { [key: string]: string };
   package: DependencyPackage;
@@ -52,11 +52,12 @@ export const databases: {
   },
 
   "firestore-datastore": {
-    port: 1111,
     orm: ORM.None,
     scripts: {},
     package: {
-      dependencies: {},
+      dependencies: {
+        "@google-cloud/datastore": "^6.1.1",
+      },
       devDependencies: {},
     },
   },
