@@ -99,6 +99,26 @@ const generator: GeneratorConfig = {
       });
     }
 
+    if (this.answers.database === "firestore-datastore") {
+      actions.push({
+        type: "modify",
+        files: "lib/infrastructure/di.ts",
+        handler: (data: string) => {
+          const insertFileManager = new InsertFileManager(data);
+          insertFileManager.afterInsert(
+            /\} from ('|")/,
+            'import { Datastore } from "@google-cloud/datastore";'
+          );
+          insertFileManager.afterInsert(
+            /registerDI/,
+            '  container.register("Datastore", { useValue: new Datastore() });'
+          );
+
+          return insertFileManager.insertedContent;
+        },
+      });
+    }
+
     return actions;
   },
   completed() {
