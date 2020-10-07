@@ -1,8 +1,9 @@
 import { GeneratorConfig } from "sao";
 import yaml from "js-yaml";
-import { databases, ORM } from "./databases";
+import { databases } from "./databases";
 import { config } from "../../../utils/config";
 import { InsertFileManager } from "../../../utils/InsertFileManager";
+import { ORM } from "../../../enums/orm";
 
 type DatabaseType = "mysql" | "postgres";
 

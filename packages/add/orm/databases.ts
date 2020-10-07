@@ -1,9 +1,5 @@
 import { DependencyPackage } from "../../../utils/DependencyPackage";
-
-export enum ORM {
-  None = "none",
-  TypeORM = "typeorm",
-}
+import { ORM } from "../../../enums/orm";
 
 interface Database {
   port?: number;
