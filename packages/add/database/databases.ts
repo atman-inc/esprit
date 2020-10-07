@@ -1,5 +1,6 @@
 import { DependencyPackage } from "../../../utils/DependencyPackage";
 import { ORM } from "../../../enums/orm";
+import { Database as DatabaseType } from "../../../enums/database";
 
 interface Database {
   port?: number;
@@ -17,9 +18,9 @@ const typeormPackages = {
 };
 
 export const databases: {
-  mysql: Database;
-  postgres: Database;
-  "firestore-datastore": Database;
+  [DatabaseType.Postgres]: Database;
+  [DatabaseType.MySQL]: Database;
+  [DatabaseType.Datastore]: Database;
 } = {
   mysql: {
     port: 3306,

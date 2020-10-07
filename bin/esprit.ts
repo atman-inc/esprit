@@ -19,7 +19,7 @@ program.command("new <name>").action((name) => {
 program.addCommand(createAddCommand());
 program.addCommand(createGenerateCommand());
 
-if (config.database.orm === ORM.TypeORM) {
+if (config.database && config.database.orm === ORM.TypeORM) {
   program.addCommand(createMigrationCommand());
 }
 

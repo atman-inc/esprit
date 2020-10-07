@@ -4,8 +4,9 @@ import { databases } from "./databases";
 import { config } from "../../../utils/config";
 import { InsertFileManager } from "../../../utils/InsertFileManager";
 import { ORM } from "../../../enums/orm";
+import { Database } from "../../../enums/database";
 
-type DatabaseType = "mysql" | "postgres";
+const databaseChoices = Object.entries(Database).map(([_, val]) => val);
 
 const generator: GeneratorConfig = {
   prompts() {
@@ -14,17 +15,13 @@ const generator: GeneratorConfig = {
         type: "select",
         name: "database",
         message: "Database:",
-        choices: [
-          { name: "postgres", value: "postgres" },
-          { name: "mysql", value: "mysql" },
-          { name: "firestore-datastore", value: "firestore-datastore" },
-        ],
+        choices: databaseChoices,
       },
     ];
   },
   async actions() {
     const projectName = config.name;
-    const databaseType: DatabaseType = this.answers.database;
+    const databaseType: Database = this.answers.database;
     const database = databases[databaseType];
 
     const actions: any = [];
@@ -100,7 +97,7 @@ const generator: GeneratorConfig = {
       });
     }
 
-    if (this.answers.database === "firestore-datastore") {
+    if (this.answers.database === Database.Datastore) {
       actions.push({
         type: "modify",
         files: "lib/infrastructure/di.ts",

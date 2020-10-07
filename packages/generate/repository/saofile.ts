@@ -1,4 +1,5 @@
 import { GeneratorConfig } from "sao";
+import { Database } from "../../../enums/database";
 import { ORM } from "../../../enums/orm";
 import { config } from "../../../utils/config";
 import { GenerateFile } from "../../../utils/GenerateFile";
@@ -46,8 +47,7 @@ const generator: GeneratorConfig = {
         },
         filters: {
           "typeorm.ts.template": config.database.orm === ORM.TypeORM,
-          "datastore.ts.template":
-            config.database.type === "firestore-datastore",
+          "datastore.ts.template": config.database.type === Database.Datastore,
         },
       },
     ];
