@@ -1,4 +1,4 @@
-<%- ormImport %>
+<%- infraImport %>
 
 describe("#handle", () => {
   xit("add some test", () => {

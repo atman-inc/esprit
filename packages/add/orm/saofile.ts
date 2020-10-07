@@ -58,7 +58,7 @@ const generator: GeneratorConfig = {
       type: "modify",
       files: "esprit.config.json",
       handler: (data: any) => {
-        data["orm"] = { type: database.orm };
+        data["database"] = { type: this.answers.database, orm: database.orm };
 
         return data;
       },
