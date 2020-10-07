@@ -76,7 +76,7 @@ const generator: GeneratorConfig = {
           );
         }
 
-        if (config.database.type === "firestore-datastore") {
+        if (config.database.type === Database.Datastore) {
           insertFileManager.beforeInsert(
             /^}$/,
             `  container.register("${domainFile.className}", { useClass: ${domainFile.className} });`
