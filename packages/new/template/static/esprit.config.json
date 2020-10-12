@@ -4,7 +4,8 @@
 <% if (mode == 'REST') { %>
   "openAPI": {
     "jsonFilePath": "lib/infrastructure/webserver/swagger.bundle.json",
-    "service": "lib/infrastructure/webserver/service"
+    "service": "lib/infrastructure/webserver/service",
+    "security": "lib/infrastructure/webserver/security"
   }
 <% } %>
 }

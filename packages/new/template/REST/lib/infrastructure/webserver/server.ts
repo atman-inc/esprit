@@ -10,6 +10,7 @@ export const createServer = async (): Promise<FastifyInstance> => {
   server.register(openapiGlue, {
     specification: config.openAPI.jsonFilePath,
     service: config.openAPI.service,
+    security: config.openAPI.security,
   });
 
   return server;
