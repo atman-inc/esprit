@@ -2,6 +2,26 @@
 
 espritはTypeScriptによるAPIサーバの開発をサポートするCLIツールです。
 
+- [esprit](#esprit)
+  - [Installation](#installation)
+- [Command](#command)
+  - [new](#new)
+  - [add](#add)
+    - [database](#database)
+  - [generate](#generate)
+    - [usecase](#usecase)
+    - [entity](#entity)
+    - [repository](#repository)
+    - [controller](#controller)
+  - [migration](#migration)
+    - [generate](#generate)
+    - [create](#create)
+    - [run](#run)
+    - [revert](#revert)
+  - [openapi](#openapi)
+    - [update](#update)
+- [Config](#config)
+
 ## Installation
 
 Install by npm
