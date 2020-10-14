@@ -1,7 +1,7 @@
-import { createCommand } from "commander";
+import Commander, { createCommand } from "commander";
 import { SAO } from "sao";
 
-export const createGenerateCommand = () => {
+export function createGenerateCommand(): Commander.Command {
   const generateCommand = createCommand().name("generate");
 
   generateCommand.command("usecase <name>").action((name: string) => {
@@ -45,4 +45,4 @@ export const createGenerateCommand = () => {
   });
 
   return generateCommand;
-};
+}

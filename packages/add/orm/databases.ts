@@ -1,4 +1,4 @@
-import { DependencyPackage } from "../../utils/dependency_package";
+import { DependencyPackage } from "../../../utils/DependencyPackage";
 
 interface Database {
   port: number;

@@ -1,8 +1,8 @@
-import { createCommand } from "commander";
+import Commander, { createCommand } from "commander";
 import { execSync } from "child_process";
 import { config } from "../utils/config";
 
-export const createMigrationCommand = () => {
+export function createMigrationCommand(): Commander.Command {
   const migrationCommand = createCommand().name("migration");
   const ormConfigFilePath = config.orm.configFilePath;
 
@@ -29,4 +29,4 @@ export const createMigrationCommand = () => {
   });
 
   return migrationCommand;
-};
+}
