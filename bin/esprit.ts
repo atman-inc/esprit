@@ -1,10 +1,11 @@
+#!/usr/bin/env node
 import { createCommand } from "commander";
 import { SAO } from "sao";
-import { createAddCommand } from "./commands/add";
-import { createGenerateCommand } from "./commands/generate";
-import { createMigrationCommand } from "./commands/migration";
-import { createOpenapiCommand } from "./commands/openapi";
-import { config } from "./utils/config";
+import { createAddCommand } from "../commands/add";
+import { createGenerateCommand } from "../commands/generate";
+import { createMigrationCommand } from "../commands/migration";
+import { createOpenapiCommand } from "../commands/openapi";
+import { config } from "../utils/config";
 
 const program = createCommand();
 
