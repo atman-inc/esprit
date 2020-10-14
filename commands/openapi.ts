@@ -55,19 +55,48 @@ export function createOpenapiCommand(): Commander.Command {
         requestParameter = method.insertParameter(0, {
           name: "req",
           type: (writer) => {
-            writer
-              .write("FastifyRequest<")
-              .inlineBlock(() => {
-                writer.write(requestGenericParameter(operationId, endpointObj));
-              })
-              .write(">");
+            const genericParameter = requestGenericParameter(
+              operationId,
+              endpointObj
+            );
+            if (genericParameter) {
+              writer
+                .write("FastifyRequest<")
+                .inlineBlock(() => {
+                  writer.write(genericParameter);
+                })
+                .write(">");
+            } else {
+              writer.write("FastifyRequest");
+            }
           },
         });
       });
     });
 
+    const securityFile = project.getSourceFileOrThrow(
+      path.join(currentDir, `${config.openAPI.security}.ts`)
+    );
+    const securityClass = securityFile.getClassOrThrow("Security");
+    const openapiComponents = openapiJSON["components"];
+
+    if (openapiComponents) {
+      const securitySchemes = openapiComponents["securitySchemes"];
+      Object.keys(securitySchemes).forEach((securityKey: string) => {
+        let method = securityClass.getMethod(securityKey);
+        if (!method) {
+          method = securityClass.addMethod({ name: securityKey });
+        }
+
+        const requestParameter = method.getParameter("req");
+        if (requestParameter) requestParameter.remove();
+        method.insertParameter(0, { name: "req", type: "FastifyRequest" });
+      });
+    }
+
     await project.save();
     console.log(`modified: ${config.openAPI.service}.ts`);
+    console.log(`modified: ${config.openAPI.security}.ts`);
   });
 
   return openapiCommand;
