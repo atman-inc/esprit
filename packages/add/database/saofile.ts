@@ -64,7 +64,7 @@ const generator: GeneratorConfig = {
     if (database.orm == ORM.TypeORM) {
       actions.push({
         type: "modify",
-        files: "config/default.yml",
+        files: "config/custom-environment-variables.yml",
         handler: (data: any) => {
           const dbConfig = {
             name: projectName,
