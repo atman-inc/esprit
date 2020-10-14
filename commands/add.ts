@@ -4,9 +4,9 @@ import { SAO } from "sao";
 export function createAddCommand(): Commander.Command {
   const addCommand = createCommand().name("add");
 
-  addCommand.command("orm").action(() => {
+  addCommand.command("database").action(() => {
     new SAO({
-      generator: `${__dirname}/../packages/add/orm`,
+      generator: `${__dirname}/../packages/add/database`,
       outDir: `./`,
     }).run();
   });

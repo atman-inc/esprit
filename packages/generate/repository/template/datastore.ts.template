@@ -1,0 +1,9 @@
+import { inject, injectable } from "tsyringe";
+import { Datastore } from "@google-cloud/datastore";
+import { <%= entityClassName %> as Domain<%= entityClassName %> } from "<%= domainEntityImportPath %>";
+import { <%= className %> as I<%= className %> } from "<%= domainImportPath %>";
+
+@injectable()
+export class <%= className %> implements I<%= className %> {
+  constructor(@inject("Datastore") private datastore: Datastore) {}
+}

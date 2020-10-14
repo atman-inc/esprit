@@ -1,6 +1,7 @@
 import { GeneratorConfig } from "sao";
 import { GenerateFile } from "../../../utils/GenerateFile";
 import { config } from "../../../utils/config";
+import { ORM } from "../../../enums/orm";
 
 const generator: GeneratorConfig = {
   actions() {
@@ -33,7 +34,7 @@ const generator: GeneratorConfig = {
       },
     ];
 
-    if (config.orm) {
+    if (config.database.orm === ORM.TypeORM) {
       actions.push({
         type: "add",
         files: ["orm.ts.template", "orm.spec.ts.template"],

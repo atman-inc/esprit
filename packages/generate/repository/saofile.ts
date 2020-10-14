@@ -1,4 +1,7 @@
 import { GeneratorConfig } from "sao";
+import { Database } from "../../../enums/database";
+import { ORM } from "../../../enums/orm";
+import { config } from "../../../utils/config";
 import { GenerateFile } from "../../../utils/GenerateFile";
 import { InsertFileManager } from "../../../utils/InsertFileManager";
 
@@ -11,14 +14,14 @@ const generator: GeneratorConfig = {
       "lib/domain/repositories",
       "Repository"
     );
-    const ormFile = new GenerateFile(
+    const infraFile = new GenerateFile(
       answers.name,
-      "lib/infrastructure/orm/repositories",
+      "lib/infrastructure/repositories",
       "Repository"
     );
-    const ormSpecFile = new GenerateFile(
+    const specFile = new GenerateFile(
       answers.name,
-      "spec/infrastructure/orm/repositories",
+      "spec/infrastructure/repositories",
       "Repository.spec"
     );
     const domainEntityFile = new GenerateFile(
@@ -36,11 +39,15 @@ const generator: GeneratorConfig = {
         files: "**",
         data: {
           className: domainFile.className,
-          ormImport: ormFile.importString,
+          infraImport: infraFile.importString,
           domainImportPath: domainFile.importPath,
           entityClassName: ormEntityFile.className,
           ormEntityImportPath: ormEntityFile.importPath,
           domainEntityImportPath: domainEntityFile.importPath,
+        },
+        filters: {
+          "typeorm.ts.template": config.database.orm === ORM.TypeORM,
+          "datastore.ts.template": config.database.type === Database.Datastore,
         },
       },
     ];
@@ -49,8 +56,9 @@ const generator: GeneratorConfig = {
       type: "move",
       patterns: {
         "domain.ts.template": domainFile.filePath,
-        "orm.ts.template": ormFile.filePath,
-        "orm.spec.ts.template": ormSpecFile.filePath,
+        "typeorm.ts.template": infraFile.filePath,
+        "datastore.ts.template": infraFile.filePath,
+        "spec.ts.template": specFile.filePath,
       },
     });
 
@@ -59,12 +67,21 @@ const generator: GeneratorConfig = {
       files: "lib/infrastructure/di.ts",
       handler: (data: string) => {
         const insertFileManager = new InsertFileManager(data);
-        insertFileManager
-          .afterInsert(/\} from ('|")/, ormFile.importString)
-          .beforeInsert(
+        insertFileManager.afterInsert(/\} from ('|")/, infraFile.importString);
+
+        if (config.database.orm === ORM.TypeORM) {
+          insertFileManager.beforeInsert(
             /^}$/,
             `  container.register("${domainFile.className}", { useValue: getCustomRepository(${domainFile.className}) });`
           );
+        }
+
+        if (config.database.type === Database.Datastore) {
+          insertFileManager.beforeInsert(
+            /^}$/,
+            `  container.register("${domainFile.className}", { useClass: ${domainFile.className} });`
+          );
+        }
 
         return insertFileManager.insertedContent;
       },
