@@ -1,6 +1,10 @@
 import { GeneratorConfig } from "sao";
 import validate from "validate-npm-package-name";
+import { NodeVersion } from "../../enums/nodeVersion";
+import { nodeVersions } from "./nodeVersions";
 import { packages } from "./packages";
+
+const nodeVersionChoices = Object.entries(NodeVersion).map(([_, val]) => val);
 
 const generator: GeneratorConfig = {
   prompts() {
@@ -25,10 +29,7 @@ const generator: GeneratorConfig = {
         type: "select",
         name: "nodeVersion",
         message: "Node version:",
-        choices: [
-          { name: "10", value: "10" },
-          { name: "12", value: "12" },
-        ],
+        choices: nodeVersionChoices,
       },
     ];
   },
@@ -44,11 +45,16 @@ const generator: GeneratorConfig = {
       });
     validation.errors && validation.errors.length && process.exit(1);
 
+    const nodeVersion: NodeVersion = this.answers.nodeVersion;
+
     return [
       {
         type: "add",
         files: "**",
         templateDir: "./template/static",
+        data: {
+          tsconfig: nodeVersions[nodeVersion].tsconfig,
+        },
       },
       {
         type: "add",
