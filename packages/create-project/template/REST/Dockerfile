@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:<%= nodeVersion %>
 
 ENV APP_ROOT /<%= name %>
 RUN mkdir $APP_ROOT
