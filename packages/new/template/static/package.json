@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "build": "tsc --build tsconfig.build.json",
     "dev": "NODE_PATH=./ ts-node-dev -r dotenv/config --files index.ts",
+    "start": "NODE_PATH=./dist node dist/index.js",
     "test": "jest --runInBand --detectOpenHandles"
   },
   "devDependencies": {
