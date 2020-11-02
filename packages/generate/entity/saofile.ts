@@ -34,7 +34,7 @@ const generator: GeneratorConfig = {
       },
     ];
 
-    if (config.database.orm === ORM.TypeORM) {
+    if (config.database && config.database.orm === ORM.TypeORM) {
       actions.push({
         type: "add",
         files: ["orm.ts.template", "orm.spec.ts.template"],
