@@ -15,6 +15,11 @@ const generator: GeneratorConfig = {
       "spec/interface/controllers",
       "Controller.spec"
     );
+    const requestSpecFile = new GenerateFile(
+      answers.name,
+      "spec/requests",
+      "Request.spec"
+    );
 
     return [
       {
@@ -30,6 +35,7 @@ const generator: GeneratorConfig = {
         patterns: {
           "controller.ts.template": controllerFile.filePath,
           "spec.ts.template": specFile.filePath,
+          "request.spec.ts.template": requestSpecFile.filePath,
         },
       },
     ];
